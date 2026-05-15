@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ID Card Generator — PIONEER COLLEGE</title>
+<title>PIONEER COLLEGE — Document Generator</title>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -173,6 +173,162 @@ body{font-family:'Inter',sans-serif;background:var(--bg);min-height:100vh;color:
   .id-card{border-radius:8px!important;box-shadow:none!important;transform:none!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   @page{size:A4;margin:15mm}
 }
+
+/* ── TABS ── */
+.tab-nav{background:#1e293b;display:flex;gap:0;padding:0 20px;overflow-x:auto}
+.tab-btn{padding:13px 26px;border:none;background:transparent;color:rgba(255,255,255,.5);font-family:'Inter',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;letter-spacing:.02em}
+.tab-btn:hover{color:#fff;background:rgba(255,255,255,.06)}
+.tab-btn.active{color:#fff;border-bottom-color:#3b82f6}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* ══════════════════════════════════════════
+   FEES RECEIPT  (.fr-*)
+══════════════════════════════════════════ */
+.doc-wrap{width:100%;max-width:720px}
+
+/* Paper shell */
+.fr-paper{background:#fff;position:relative;overflow:hidden;font-family:'Inter',sans-serif;color:#1e293b;box-shadow:0 24px 70px rgba(0,0,0,.22),0 4px 14px rgba(0,0,0,.1)}
+
+/* Watermark */
+.fr-wm,.ss-wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:360px;height:180px;pointer-events:none;z-index:0;opacity:.05;filter:grayscale(1)}
+.fr-wm img,.ss-wm img{width:100%;height:100%;object-fit:contain}
+
+/* Header — left brand slab + right info */
+.fr-head{display:flex;align-items:stretch;position:relative;z-index:1}
+.fr-brand{background:linear-gradient(170deg,#061529 0%,#0f2451 55%,#1a3a6b 100%);width:120px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:22px 14px;position:relative}
+.fr-brand::after{content:'';position:absolute;right:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#d97706,#fbbf24,#fde68a,#fbbf24,#d97706)}
+.fr-logo-ring{width:68px;height:68px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.28);flex-shrink:0}
+.fr-logo-ring img{width:176px;height:88px;display:block;margin-left:-9px;margin-top:-10px}
+.fr-brand-name{font-family:'Poppins',sans-serif;font-size:.62rem;font-weight:800;color:#fff;letter-spacing:.12em;text-align:center;line-height:1.3}
+.fr-brand-est{font-size:.52rem;color:rgba(255,255,255,.45);letter-spacing:.06em;text-align:center}
+.fr-info{flex:1;padding:20px 24px;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid #e2e8f0}
+.fr-college{font-family:'Poppins',sans-serif;font-size:1.28rem;font-weight:800;color:#0f2451;letter-spacing:.02em}
+.fr-college-sub{font-size:.65rem;color:#475569;margin-top:3px}
+.fr-college-addr{font-size:.6rem;color:#64748b;margin-top:6px;line-height:1.7}
+.fr-college-affil{font-size:.57rem;color:#2563eb;font-weight:700;margin-top:5px;letter-spacing:.03em}
+
+/* Title banner */
+.fr-banner{display:flex;align-items:center;background:linear-gradient(90deg,#0a1c3e,#1a3a6b,#2563eb);position:relative;z-index:1}
+.fr-banner-title{font-family:'Poppins',sans-serif;font-size:.95rem;font-weight:800;color:#fff;letter-spacing:.28em;padding:10px 28px;flex:1;text-align:center}
+.fr-banner-yr{font-size:.6rem;color:rgba(255,255,255,.55);padding:0 20px;white-space:nowrap;border-left:1px solid rgba(255,255,255,.15);display:flex;align-items:center;gap:6px}
+.fr-banner-yr strong{color:#fbbf24;font-size:.72rem}
+
+/* Meta row */
+.fr-meta{display:grid;grid-template-columns:1fr 1fr 1fr;background:#f1f5f9;border-bottom:2px solid #e2e8f0;position:relative;z-index:1}
+.fr-meta-cell{padding:10px 18px;border-right:1px solid #e2e8f0}
+.fr-meta-cell:last-child{border-right:none;text-align:right}
+.fr-meta-lbl{font-size:.55rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.09em;display:block}
+.fr-meta-val{font-size:.82rem;font-weight:700;color:#0f2451;display:block;margin-top:3px;font-family:'Courier New',monospace;letter-spacing:.04em}
+
+/* Section */
+.fr-sect{padding:16px 22px;position:relative;z-index:1}
+.fr-sect-hdr{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.fr-sect-hdr-bar{width:4px;height:16px;background:linear-gradient(180deg,#1a3a6b,#2563eb);border-radius:2px;flex-shrink:0}
+.fr-sect-hdr-title{font-size:.65rem;font-weight:800;color:#0f2451;text-transform:uppercase;letter-spacing:.1em}
+.fr-sect-hdr-line{flex:1;height:1px;background:#e2e8f0}
+
+/* Student info grid */
+.fr-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 32px}
+.fr-field-lbl{font-size:.55rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em}
+.fr-field-val{font-size:.8rem;font-weight:600;color:#1e293b;margin-top:2px;padding-bottom:5px;border-bottom:1px dashed #e2e8f0;min-height:22px}
+
+/* Fee table */
+.fr-table{width:100%;border-collapse:collapse}
+.fr-table thead tr{background:linear-gradient(90deg,#0a1c3e,#1a3a6b)}
+.fr-table th{color:#fff;padding:9px 16px;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.fr-table th:last-child{text-align:right}
+.fr-table td{padding:9px 16px;font-size:.78rem;border-bottom:1px solid #f1f5f9;color:#334155}
+.fr-table td:first-child{color:#94a3b8;font-size:.7rem;text-align:center;width:48px}
+.fr-table td:last-child{text-align:right;font-weight:600;font-variant-numeric:tabular-nums;color:#1e293b}
+.fr-table tr:nth-child(even) td{background:#f8fafc}
+.fr-table .fr-tr-total td{background:linear-gradient(90deg,#0a1c3e,#1a3a6b);color:#fff;font-weight:800;font-size:.84rem;border:none;padding:11px 16px}
+.fr-table .fr-tr-total td:last-child{color:#fbbf24}
+
+/* Amount in words */
+.fr-words{padding:11px 22px;background:linear-gradient(90deg,#fefce8,#fffbeb,#fefce8);border-top:1.5px solid #fde68a;border-bottom:1.5px solid #fde68a;display:flex;align-items:baseline;gap:10px;position:relative;z-index:1}
+.fr-words-lbl{font-size:.58rem;font-weight:800;color:#92400e;text-transform:uppercase;letter-spacing:.07em;flex-shrink:0}
+.fr-words-val{font-size:.76rem;font-weight:600;color:#78350f;font-style:italic}
+
+/* Signature strip */
+.fr-sigs{display:grid;grid-template-columns:1fr 88px 1fr;align-items:center;padding:18px 28px 22px;gap:16px;position:relative;z-index:1}
+.fr-sig{display:flex;flex-direction:column;align-items:center;gap:6px}
+.fr-sig-cursive{font-family:'Dancing Script',cursive;font-size:1.5rem;font-weight:700;color:#1a3a6b;min-height:38px;line-height:1.1}
+.fr-sig-rule{height:1.5px;background:#cbd5e1;width:140px}
+.fr-sig-lbl{font-size:.57rem;color:#64748b;text-align:center;line-height:1.5;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+
+/* Stamp */
+.fr-stamp{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.fr-stamp-ring{width:78px;height:78px;border-radius:50%;border:2.5px solid #1a3a6b;display:flex;align-items:center;justify-content:center;position:relative}
+.fr-stamp-ring::before{content:'';position:absolute;inset:6px;border-radius:50%;border:1.5px dashed rgba(26,58,107,.4)}
+.fr-stamp-inner{text-align:center;font-family:'Poppins',sans-serif;font-size:.55rem;font-weight:800;color:#1a3a6b;line-height:1.5;letter-spacing:.05em}
+.fr-stamp-paid{font-size:1rem;font-weight:900;color:#15803d;display:block;margin-top:2px;letter-spacing:.1em}
+
+/* Footer */
+.fr-foot{background:#0a1c3e;padding:8px 22px;display:flex;justify-content:space-between;align-items:center;font-size:.55rem;color:rgba(255,255,255,.35);position:relative;z-index:1}
+.fr-foot strong{color:rgba(255,255,255,.6);font-weight:600;letter-spacing:.04em}
+
+/* ══════════════════════════════════════════
+   SALARY SLIP  (.ss-*)
+══════════════════════════════════════════ */
+.ss-paper{background:#fff;position:relative;overflow:hidden;font-family:'Inter',sans-serif;color:#1e293b;box-shadow:0 24px 70px rgba(0,0,0,.22),0 4px 14px rgba(0,0,0,.1)}
+
+/* Header */
+.ss-head{background:linear-gradient(135deg,#020c1b 0%,#0a1c3e 40%,#0f2451 70%,#1a3a6b 100%);display:flex;align-items:center;justify-content:space-between;padding:22px 28px;position:relative;z-index:1;overflow:hidden}
+.ss-head::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.03);pointer-events:none}
+.ss-head::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#b45309,#d97706,#fbbf24,#fde68a,#fbbf24,#d97706,#b45309)}
+.ss-head-left{display:flex;align-items:center;gap:18px;position:relative;z-index:1}
+.ss-logo-ring{width:66px;height:66px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.25);flex-shrink:0}
+.ss-logo-ring img{width:172px;height:86px;display:block;margin-left:-9px;margin-top:-10px}
+.ss-college{font-family:'Poppins',sans-serif;font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:.02em}
+.ss-college-sub{font-size:.62rem;color:rgba(255,255,255,.55);margin-top:3px}
+.ss-contact{font-size:.56rem;color:rgba(255,255,255,.38);margin-top:4px}
+.ss-head-right{text-align:right;position:relative;z-index:1}
+.ss-slip-tag{font-size:.55rem;color:rgba(255,255,255,.4);letter-spacing:.2em;text-transform:uppercase;display:block}
+.ss-slip-title{font-family:'Poppins',sans-serif;font-size:1.5rem;font-weight:900;color:#fbbf24;letter-spacing:.1em;line-height:1;display:block}
+.ss-slip-period{font-size:.7rem;color:rgba(255,255,255,.7);margin-top:5px;font-weight:600;display:block}
+
+/* Employee band */
+.ss-emp{display:grid;grid-template-columns:repeat(3,1fr);background:#f8fafc;border-bottom:1px solid #e2e8f0;position:relative;z-index:1}
+.ss-emp-cell{padding:10px 16px;border-right:1px solid #e2e8f0}
+.ss-emp-cell:last-child,.ss-emp-cell:nth-child(3){border-right:none}
+.ss-emp-lbl{font-size:.53rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.09em;display:block}
+.ss-emp-val{font-size:.78rem;font-weight:700;color:#0f2451;margin-top:3px;display:block}
+
+/* Pay table */
+.ss-pay{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #e2e8f0;position:relative;z-index:1}
+.ss-earn{border-right:1px solid #e2e8f0}
+.ss-col-hdr{padding:9px 18px;font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#fff}
+.ss-earn .ss-col-hdr{background:linear-gradient(90deg,#0a1c3e,#1a3a6b)}
+.ss-ded .ss-col-hdr{background:linear-gradient(90deg,#7c2d12,#b45309)}
+.ss-col-row{display:flex;justify-content:space-between;align-items:center;padding:7px 18px;border-bottom:1px solid #f1f5f9}
+.ss-col-lbl{font-size:.72rem;color:#475569}
+.ss-col-val{font-size:.74rem;font-weight:600;color:#1e293b;font-variant-numeric:tabular-nums}
+.ss-col-total{display:flex;justify-content:space-between;padding:9px 18px;font-size:.74rem;font-weight:800;border-top:2px solid}
+.ss-earn .ss-col-total{background:#eff6ff;color:#0f2451;border-color:#1a3a6b}
+.ss-ded .ss-col-total{background:#fff7ed;color:#9a3412;border-color:#c2410c}
+
+/* Net pay */
+.ss-net{background:linear-gradient(135deg,#020c1b,#0a1c3e,#0f2451);padding:20px 28px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1;overflow:hidden}
+.ss-net::before{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(251,191,36,.06);pointer-events:none}
+.ss-net-left{position:relative;z-index:1}
+.ss-net-lbl{font-size:.58rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.15em;font-weight:700;display:block}
+.ss-net-period{font-size:.66rem;color:rgba(255,255,255,.6);margin-top:3px;font-weight:600;display:block}
+.ss-net-words{font-size:.6rem;color:rgba(255,255,255,.5);margin-top:8px;max-width:320px;font-style:italic;display:block;line-height:1.4}
+.ss-net-right{text-align:right;position:relative;z-index:1}
+.ss-net-currency{font-size:.58rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:2px}
+.ss-net-amt{font-family:'Poppins',sans-serif;font-size:2.1rem;font-weight:900;color:#fbbf24;letter-spacing:.02em;line-height:1;display:block}
+
+/* Signatures */
+.ss-sigs{display:grid;grid-template-columns:1fr 1fr;padding:20px 28px 24px;gap:28px;position:relative;z-index:1;border-top:1px solid #e2e8f0}
+.ss-sig{display:flex;flex-direction:column;align-items:center;gap:6px}
+.ss-sig-cursive{font-family:'Dancing Script',cursive;font-size:1.5rem;font-weight:700;color:#1a3a6b;min-height:38px;line-height:1.1}
+.ss-sig-rule{height:1.5px;background:#cbd5e1;width:160px}
+.ss-sig-lbl{font-size:.57rem;color:#64748b;text-align:center;line-height:1.5;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+
+/* Footer */
+.ss-foot{background:#0a1c3e;padding:8px 28px;display:flex;justify-content:space-between;align-items:center;font-size:.55rem;color:rgba(255,255,255,.3);position:relative;z-index:1}
+.ss-foot strong{color:rgba(255,255,255,.55);font-weight:600;letter-spacing:.05em}
 </style>
 </head>
 <body>
@@ -184,11 +340,18 @@ body{font-family:'Inter',sans-serif;background:var(--bg);min-height:100vh;color:
     <span>EST.2005</span>
   </div>
   <div class="topbar-info">
-    <h1>PIONEER COLLEGE — ID Card Generator</h1>
+    <h1>PIONEER COLLEGE — Document Generator</h1>
     <p>Bahraich, Uttar Pradesh &nbsp;|&nbsp; UP Paramedical Council Affiliated</p>
   </div>
   <div class="topbar-badge">Official Tool</div>
 </header>
+
+<!-- TAB NAV -->
+<nav class="tab-nav">
+  <button class="tab-btn active" data-tab="idcard" onclick="switchTab('idcard')">🪪&nbsp; ID Card</button>
+  <button class="tab-btn" data-tab="fees" onclick="switchTab('fees')">🧾&nbsp; Fees Receipt</button>
+  <button class="tab-btn" data-tab="salary" onclick="switchTab('salary')">💼&nbsp; Salary Slip</button>
+</nav>
 
 <!-- Download overlay -->
 <div id="dl-overlay">
@@ -196,6 +359,8 @@ body{font-family:'Inter',sans-serif;background:var(--bg);min-height:100vh;color:
   <span>Generating PNG…</span>
 </div>
 
+<!-- TAB: ID CARD -->
+<div id="tab-idcard" class="tab-content active">
 <!-- PAGE -->
 <div class="page">
 
@@ -324,6 +489,307 @@ body{font-family:'Inter',sans-serif;background:var(--bg);min-height:100vh;color:
   </div>
 
 </div>
+
+</div><!-- /tab-idcard -->
+
+<!-- TAB: FEES RECEIPT -->
+<div id="tab-fees" class="tab-content">
+<div class="page">
+  <div class="left">
+    <div class="panel">
+      <div class="panel-head">✨ Quick Generate</div>
+      <div class="panel-body">
+        <button class="gen-btn" style="background:linear-gradient(135deg,#1a3a6b,#2563eb)" onclick="frAutoGenerate()">🎲&nbsp; Auto Generate Receipt</button>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-head">📝 Receipt Details</div>
+      <div class="panel-body"><div class="fields" id="fr-fields"><p style="font-size:.8rem;color:#94a3b8;text-align:center;padding:20px 0">Click Auto Generate to start</p></div></div>
+    </div>
+    <div class="actions">
+      <button class="btn-print" onclick="window.print()">🖨️ Print / PDF</button>
+      <button class="btn-reset" onclick="frResetAll()">↩ Reset</button>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="preview-lbl">Fees Receipt Preview</div>
+    <div class="doc-wrap">
+      <div class="fr-paper" id="fees-doc">
+
+        <!-- Watermark logo -->
+        <div class="fr-wm"><img src="./static-assets/brand-logos/bbs-logo-white.svg" alt=""></div>
+
+        <!-- Header: brand slab + college info -->
+        <div class="fr-head">
+          <div class="fr-brand">
+            <div class="fr-logo-ring">
+              <img src="./static-assets/brand-logos/bbs-logo-white.svg" alt="Logo">
+            </div>
+            <div class="fr-brand-name">PIONEER<br>COLLEGE</div>
+            <div class="fr-brand-est">EST. 2005</div>
+          </div>
+          <div class="fr-info">
+            <div class="fr-college">PIONEER COLLEGE</div>
+            <div class="fr-college-sub">College of Paramedical Sciences</div>
+            <div class="fr-college-addr">
+              Bahraich, Uttar Pradesh — 271801<br>
+              Ph: +91-6394729329 &nbsp;|&nbsp; admissions@pioneercollege.edu.pl
+            </div>
+            <div class="fr-college-affil">Affiliated: UP Paramedical Council, Lucknow &nbsp;|&nbsp; Regd. Ministry of Health &amp; Family Welfare, Govt. of India</div>
+          </div>
+        </div>
+
+        <!-- Title banner -->
+        <div class="fr-banner">
+          <div class="fr-banner-title">FEES RECEIPT</div>
+          <div class="fr-banner-yr">Academic Year &nbsp;<strong id="fr-acad-year">—</strong></div>
+        </div>
+
+        <!-- Meta strip: receipt no | academic year | date -->
+        <div class="fr-meta">
+          <div class="fr-meta-cell">
+            <span class="fr-meta-lbl">Receipt No.</span>
+            <span class="fr-meta-val" id="fr-receipt-no">—</span>
+          </div>
+          <div class="fr-meta-cell">
+            <span class="fr-meta-lbl">Roll No.</span>
+            <span class="fr-meta-val" id="fr-roll">—</span>
+          </div>
+          <div class="fr-meta-cell">
+            <span class="fr-meta-lbl">Date of Payment</span>
+            <span class="fr-meta-val" id="fr-date">—</span>
+          </div>
+        </div>
+
+        <!-- Student information -->
+        <div class="fr-sect">
+          <div class="fr-sect-hdr">
+            <div class="fr-sect-hdr-bar"></div>
+            <div class="fr-sect-hdr-title">Student Information</div>
+            <div class="fr-sect-hdr-line"></div>
+          </div>
+          <div class="fr-info-grid">
+            <div class="fr-field">
+              <div class="fr-field-lbl">Student Name</div>
+              <div class="fr-field-val" id="fr-stu-name">—</div>
+            </div>
+            <div class="fr-field">
+              <div class="fr-field-lbl">Father's / Guardian's Name</div>
+              <div class="fr-field-val" id="fr-father">—</div>
+            </div>
+            <div class="fr-field">
+              <div class="fr-field-lbl">Course</div>
+              <div class="fr-field-val" id="fr-course">—</div>
+            </div>
+            <div class="fr-field">
+              <div class="fr-field-lbl">Year of Study</div>
+              <div class="fr-field-val" id="fr-year">—</div>
+            </div>
+            <div class="fr-field">
+              <div class="fr-field-lbl">Mode of Payment</div>
+              <div class="fr-field-val" id="fr-pay-mode">—</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fee table -->
+        <div class="fr-sect" style="padding-top:0">
+          <div class="fr-sect-hdr">
+            <div class="fr-sect-hdr-bar"></div>
+            <div class="fr-sect-hdr-title">Fee Particulars</div>
+            <div class="fr-sect-hdr-line"></div>
+          </div>
+          <table class="fr-table">
+            <thead>
+              <tr>
+                <th style="width:50px;text-align:center">S.No</th>
+                <th>Fee Head / Description</th>
+                <th style="width:140px">Amount (₹)</th>
+              </tr>
+            </thead>
+            <tbody id="fr-fee-rows"></tbody>
+          </table>
+        </div>
+
+        <!-- Amount in words -->
+        <div class="fr-words">
+          <span class="fr-words-lbl">Rupees in Words:</span>
+          <span class="fr-words-val" id="fr-words">—</span>
+        </div>
+
+        <!-- Signatures -->
+        <div class="fr-sigs">
+          <div class="fr-sig">
+            <div class="fr-sig-cursive" id="fr-cashier-sig">—</div>
+            <div class="fr-sig-rule"></div>
+            <div class="fr-sig-lbl">Cashier / Accounts Officer<br>Pioneer College</div>
+          </div>
+          <div class="fr-stamp">
+            <div class="fr-stamp-ring">
+              <div class="fr-stamp-inner">PIONEER<br>COLLEGE<br><span class="fr-stamp-paid">PAID</span></div>
+            </div>
+          </div>
+          <div class="fr-sig">
+            <div class="fr-sig-cursive" id="fr-stu-sig">—</div>
+            <div class="fr-sig-rule"></div>
+            <div class="fr-sig-lbl">Student / Guardian<br>Signature</div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="fr-foot">
+          <span>⚠ Computer-generated receipt — valid without physical signature when college seal is affixed.</span>
+          <strong>PIONEER COLLEGE</strong>
+        </div>
+
+      </div>
+    </div>
+    <button class="btn-dl-main" id="btn-dl-fees" onclick="frDownloadPNG()" style="background:linear-gradient(135deg,#0a1c3e,#1a3a6b);box-shadow:0 6px 20px rgba(15,36,81,.45)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Fees Receipt as PNG
+    </button>
+  </div>
+</div>
+</div><!-- /tab-fees -->
+
+<!-- TAB: SALARY SLIP -->
+<div id="tab-salary" class="tab-content">
+<div class="page">
+  <div class="left">
+    <div class="panel">
+      <div class="panel-head">✨ Quick Generate</div>
+      <div class="panel-body">
+        <button class="gen-btn" style="background:linear-gradient(135deg,#0a1c3e,#1a3a6b)" onclick="ssAutoGenerate()">🎲&nbsp; Auto Generate Salary Slip</button>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-head">📝 Employee Details</div>
+      <div class="panel-body"><div class="fields" id="ss-fields"><p style="font-size:.8rem;color:#94a3b8;text-align:center;padding:20px 0">Click Auto Generate to start</p></div></div>
+    </div>
+    <div class="actions">
+      <button class="btn-print" onclick="window.print()">🖨️ Print / PDF</button>
+      <button class="btn-reset" onclick="ssResetAll()">↩ Reset</button>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="preview-lbl">Salary Slip Preview</div>
+    <div class="doc-wrap">
+      <div class="ss-paper" id="salary-doc">
+
+        <!-- Watermark -->
+        <div class="ss-wm"><img src="./static-assets/brand-logos/bbs-logo-white.svg" alt=""></div>
+
+        <!-- Header -->
+        <div class="ss-head">
+          <div class="ss-head-left">
+            <div class="ss-logo-ring">
+              <img src="./static-assets/brand-logos/bbs-logo-white.svg" alt="Logo">
+            </div>
+            <div>
+              <div class="ss-college">PIONEER COLLEGE</div>
+              <div class="ss-college-sub">College of Paramedical Sciences, Bahraich, UP</div>
+              <div class="ss-contact">hr@pioneercollege.edu.pl &nbsp;|&nbsp; +91-6394729329 &nbsp;|&nbsp; UP Paramedical Council Affiliated</div>
+            </div>
+          </div>
+          <div class="ss-head-right">
+            <span class="ss-slip-tag">Official Document</span>
+            <span class="ss-slip-title">SALARY SLIP</span>
+            <span class="ss-slip-period" id="ss-period">—</span>
+          </div>
+        </div>
+
+        <!-- Employee info band (3×2 grid) -->
+        <div class="ss-emp">
+          <div class="ss-emp-cell">
+            <span class="ss-emp-lbl">Employee Name</span>
+            <span class="ss-emp-val" id="ss-emp-name">—</span>
+          </div>
+          <div class="ss-emp-cell">
+            <span class="ss-emp-lbl">Employee ID</span>
+            <span class="ss-emp-val" id="ss-emp-id">—</span>
+          </div>
+          <div class="ss-emp-cell">
+            <span class="ss-emp-lbl">Designation</span>
+            <span class="ss-emp-val" id="ss-desig">—</span>
+          </div>
+          <div class="ss-emp-cell">
+            <span class="ss-emp-lbl">Department</span>
+            <span class="ss-emp-val" id="ss-dept">—</span>
+          </div>
+          <div class="ss-emp-cell">
+            <span class="ss-emp-lbl">Bank A/C No.</span>
+            <span class="ss-emp-val" id="ss-bank">—</span>
+          </div>
+          <div class="ss-emp-cell">
+            <span class="ss-emp-lbl">PAN No.</span>
+            <span class="ss-emp-val" id="ss-pan">—</span>
+          </div>
+        </div>
+
+        <!-- Earnings / Deductions -->
+        <div class="ss-pay">
+          <div class="ss-earn">
+            <div class="ss-col-hdr">Earnings</div>
+            <div id="ss-earn-rows"></div>
+            <div class="ss-col-total">
+              <span>Gross Earnings</span>
+              <span>₹ <b id="ss-gross">0</b></span>
+            </div>
+          </div>
+          <div class="ss-ded">
+            <div class="ss-col-hdr">Deductions</div>
+            <div id="ss-ded-rows"></div>
+            <div class="ss-col-total">
+              <span>Total Deductions</span>
+              <span>₹ <b id="ss-total-ded">0</b></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Net pay -->
+        <div class="ss-net">
+          <div class="ss-net-left">
+            <span class="ss-net-lbl">Net Salary Payable</span>
+            <span class="ss-net-period" id="ss-period2">—</span>
+            <span class="ss-net-words" id="ss-net-words">—</span>
+          </div>
+          <div class="ss-net-right">
+            <span class="ss-net-currency">Indian Rupees</span>
+            <span class="ss-net-amt">₹ <span id="ss-net">0</span></span>
+          </div>
+        </div>
+
+        <!-- Signatures -->
+        <div class="ss-sigs">
+          <div class="ss-sig">
+            <div class="ss-sig-cursive" id="ss-auth-sig">—</div>
+            <div class="ss-sig-rule"></div>
+            <div class="ss-sig-lbl">Authorized Signatory<br>Principal / HR, Pioneer College</div>
+          </div>
+          <div class="ss-sig">
+            <div class="ss-sig-cursive" id="ss-emp-sig">—</div>
+            <div class="ss-sig-rule"></div>
+            <div class="ss-sig-lbl">Employee Signature<br>Received By</div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="ss-foot">
+          <span>⚠ This is a system-generated salary slip — Confidential &amp; for official use only.</span>
+          <strong>PIONEER COLLEGE — HUMAN RESOURCES</strong>
+        </div>
+
+      </div>
+    </div>
+    <button class="btn-dl-main" id="btn-dl-salary" onclick="ssDownloadPNG()" style="background:linear-gradient(135deg,#0a1c3e,#b45309);box-shadow:0 6px 20px rgba(15,36,81,.4)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Salary Slip as PNG
+    </button>
+  </div>
+</div>
+</div><!-- /tab-salary -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -669,6 +1135,228 @@ window.addEventListener('load',()=>{
   updateQR();
   autoGenerate();
 });
+
+// ── TAB SYSTEM ────────────────────────────────────────────
+function switchTab(t){
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));
+  document.getElementById('tab-'+t).classList.add('active');
+}
+
+// ── NUMBER TO WORDS ───────────────────────────────────────
+function numToWords(n){
+  n=Math.round(n||0);
+  if(!n) return 'Zero Rupees Only';
+  const ones=['','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen'];
+  const t=['','','Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety'];
+  const b100=n=>n<20?ones[n]:t[Math.floor(n/10)]+(n%10?' '+ones[n%10]:'');
+  const b1000=n=>n>=100?ones[Math.floor(n/100)]+' Hundred'+(n%100?' '+b100(n%100):''):b100(n);
+  let r='',x=n;
+  if(x>=10000000){r+=b1000(Math.floor(x/10000000))+' Crore ';x%=10000000;}
+  if(x>=100000){r+=b1000(Math.floor(x/100000))+' Lakh ';x%=100000;}
+  if(x>=1000){r+=b1000(Math.floor(x/1000))+' Thousand ';x%=1000;}
+  if(x>0)r+=b1000(x);
+  return r.trim()+' Rupees Only';
+}
+function fmtAmt(n){return Number(n||0).toLocaleString('en-IN');}
+function setText(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
+
+// ── FEES RECEIPT DATA ─────────────────────────────────────
+const FATHERS=['Ram Prasad','Shiv Kumar','Lal Bahadur','Ramesh Chandra','Anil Kumar','Suresh Prasad','Mukesh Singh','Rajesh Gupta','Vinod Sharma','Harish Tiwari','Dinesh Yadav','Manoj Pandey','Santosh Verma','Arvind Mishra','Kapil Dev Tripathi'];
+const PAY_MODES=['Cash','Online (UPI)','Demand Draft','NEFT / RTGS','Cheque'];
+const FR={receiptNo:'',date:'',stuName:'',fatherName:'',course:'',dept:'',year:'',acadYear:'',rollNo:'',payMode:'Cash',tuition:0,lab:0,library:0,exam:0,dev:0,misc:0,cashier:''};
+
+function frAutoGenerate(){
+  const yr=new Date().getFullYear();
+  FR.receiptNo='PC/FEES/'+yr+'/'+pad(Math.floor(Math.random()*9000+1000));
+  FR.date=pad(1+Math.floor(Math.random()*28),2)+'/'+pad(1+Math.floor(Math.random()*12),2)+'/'+yr;
+  FR.stuName=rStudentName();
+  FR.fatherName=rand(FATHERS)+' '+rand(LAST);
+  FR.course=rand(COURSES);
+  FR.dept=rand(DEPTS);
+  FR.year=rand(YEARS);
+  FR.acadYear=yr+'–'+(yr+1);
+  FR.rollNo='PC-'+String(yr).slice(2)+'-'+pad(Math.floor(Math.random()*9000+1000));
+  FR.payMode=rand(PAY_MODES);
+  FR.tuition=(Math.floor(Math.random()*5+2))*5000;
+  FR.lab=(Math.floor(Math.random()*3+1))*1000;
+  FR.library=500;
+  FR.exam=(Math.floor(Math.random()*2+1))*500;
+  FR.dev=1000;
+  FR.misc=500;
+  FR.cashier=rand(SIG_NAMES);
+  frRenderFields();frUpdatePreview();
+}
+
+function frRenderFields(){
+  document.getElementById('fr-fields').innerHTML=`
+    <div class="row2">
+      <div class="field"><label>Receipt No.</label><input type="text" value="${esc(FR.receiptNo)}" oninput="FR.receiptNo=this.value;frUpdatePreview()"></div>
+      <div class="field"><label>Date</label><input type="text" value="${esc(FR.date)}" oninput="FR.date=this.value;frUpdatePreview()"></div>
+    </div>
+    <div class="field"><label>Student Name</label><input type="text" value="${esc(FR.stuName)}" oninput="FR.stuName=this.value;frUpdatePreview()"></div>
+    <div class="field"><label>Father's / Guardian's Name</label><input type="text" value="${esc(FR.fatherName)}" oninput="FR.fatherName=this.value;frUpdatePreview()"></div>
+    <div class="field"><label>Course</label><select onchange="FR.course=this.value;frUpdatePreview()">${COURSES.map(c=>`<option${FR.course===c?' selected':''}>${c}</option>`).join('')}</select></div>
+    <div class="row2">
+      <div class="field"><label>Year of Study</label><select onchange="FR.year=this.value;frUpdatePreview()">${YEARS.map(y=>`<option${FR.year===y?' selected':''}>${y}</option>`).join('')}</select></div>
+      <div class="field"><label>Academic Year</label><input type="text" value="${esc(FR.acadYear)}" oninput="FR.acadYear=this.value;frUpdatePreview()"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Roll No.</label><input type="text" value="${esc(FR.rollNo)}" oninput="FR.rollNo=this.value;frUpdatePreview()"></div>
+      <div class="field"><label>Payment Mode</label><select onchange="FR.payMode=this.value;frUpdatePreview()">${PAY_MODES.map(m=>`<option${FR.payMode===m?' selected':''}>${m}</option>`).join('')}</select></div>
+    </div>
+    <div class="doc-sect-ttl" style="margin-top:6px">Fee Amounts (₹)</div>
+    <div class="row2">
+      <div class="field"><label>Tuition Fee</label><input type="number" value="${FR.tuition}" oninput="FR.tuition=+this.value;frUpdatePreview()"></div>
+      <div class="field"><label>Lab / Practical Fee</label><input type="number" value="${FR.lab}" oninput="FR.lab=+this.value;frUpdatePreview()"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Library Fee</label><input type="number" value="${FR.library}" oninput="FR.library=+this.value;frUpdatePreview()"></div>
+      <div class="field"><label>Examination Fee</label><input type="number" value="${FR.exam}" oninput="FR.exam=+this.value;frUpdatePreview()"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Development Fee</label><input type="number" value="${FR.dev}" oninput="FR.dev=+this.value;frUpdatePreview()"></div>
+      <div class="field"><label>Miscellaneous</label><input type="number" value="${FR.misc}" oninput="FR.misc=+this.value;frUpdatePreview()"></div>
+    </div>
+    <div class="field"><label>Cashier Name</label><input type="text" value="${esc(FR.cashier)}" oninput="FR.cashier=this.value;frUpdatePreview()"></div>`;
+}
+
+function frUpdatePreview(){
+  const total=FR.tuition+FR.lab+FR.library+FR.exam+FR.dev+FR.misc;
+  setText('fr-receipt-no',FR.receiptNo||'—');setText('fr-date',FR.date||'—');
+  setText('fr-acad-year',FR.acadYear||'—');setText('fr-stu-name',FR.stuName||'—');
+  setText('fr-father',FR.fatherName||'—');setText('fr-course',FR.course||'—');
+  setText('fr-year',FR.year||'—');setText('fr-roll',FR.rollNo||'—');
+  setText('fr-pay-mode',FR.payMode||'—');setText('fr-words',numToWords(total));
+  setText('fr-cashier-sig',FR.cashier||'—');setText('fr-stu-sig',FR.stuName||'—');
+  const fees=[['Tuition Fee',FR.tuition],['Lab / Practical Fee',FR.lab],['Library Fee',FR.library],['Examination Fee',FR.exam],['Development Fee',FR.dev],['Miscellaneous',FR.misc]];
+  document.getElementById('fr-fee-rows').innerHTML=fees.map((f,i)=>`<tr><td>${i+1}</td><td>${f[0]}</td><td>₹ ${fmtAmt(f[1])}</td></tr>`).join('')+`<tr class="fr-tr-total"><td colspan="2"><b>TOTAL AMOUNT PAID</b></td><td><b>₹ ${fmtAmt(total)}</b></td></tr>`;
+}
+
+function frResetAll(){
+  ['receiptNo','date','stuName','fatherName','course','dept','year','acadYear','rollNo','cashier'].forEach(k=>FR[k]='');
+  FR.payMode='Cash';['tuition','lab','library','exam','dev','misc'].forEach(k=>FR[k]=0);
+  frRenderFields();frUpdatePreview();
+}
+
+async function frDownloadPNG(){
+  const namePart=(FR.stuName||'Receipt').replace(/\s+/g,'_').replace(/[^a-z0-9_]/gi,'');
+  await docDownloadPNG(document.getElementById('fees-doc'),document.getElementById('btn-dl-fees'),namePart+'_Fees_Receipt_PIONEER_COLLEGE');
+}
+
+// ── SALARY SLIP DATA ──────────────────────────────────────
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const SS={name:'',empId:'',desig:'',dept:'',month:'',year:'',bankAcc:'',pan:'',basic:0,hra:0,da:0,ta:0,medical:0,special:0,pf:0,profTax:0,tds:0,authSig:''};
+
+function ssAutoGenerate(){
+  const yr=new Date().getFullYear();
+  const m=1+Math.floor(Math.random()*12);
+  const pc=()=>String.fromCharCode(65+Math.floor(Math.random()*26));
+  SS.name=rTeacherName();
+  SS.empId='PC-FAC-'+(2008+Math.floor(Math.random()*14))+'-'+pad(Math.floor(Math.random()*900+100),3);
+  SS.desig=rand(DESIGS);SS.dept=rand(DEPTS);
+  SS.month=MONTHS[m-1];SS.year=yr;
+  SS.bankAcc='****'+pad(Math.floor(Math.random()*9000+1000));
+  SS.pan=pc()+pc()+pc()+pc()+pc()+Math.floor(Math.random()*9000+1000)+pc();
+  SS.basic=(Math.floor(Math.random()*8+3))*5000;
+  SS.hra=Math.round(SS.basic*.3);SS.da=Math.round(SS.basic*.12);
+  SS.ta=rand([800,1000,1200,1500,2000]);SS.medical=1250;
+  SS.special=rand([1000,1500,2000,2500,3000]);
+  SS.pf=Math.round(SS.basic*.12);SS.profTax=200;SS.tds=Math.round(SS.basic*.05);
+  SS.authSig=rand(SIG_NAMES);
+  ssRenderFields();ssUpdatePreview();
+}
+
+function ssRenderFields(){
+  document.getElementById('ss-fields').innerHTML=`
+    <div class="field"><label>Employee Name</label><input type="text" value="${esc(SS.name)}" oninput="SS.name=this.value;ssUpdatePreview()"></div>
+    <div class="row2">
+      <div class="field"><label>Employee ID</label><input type="text" value="${esc(SS.empId)}" oninput="SS.empId=this.value;ssUpdatePreview()"></div>
+      <div class="field"><label>Month</label><select onchange="SS.month=this.value;ssUpdatePreview()">${MONTHS.map(m=>`<option${SS.month===m?' selected':''}>${m}</option>`).join('')}</select></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Year</label><input type="number" value="${SS.year}" oninput="SS.year=this.value;ssUpdatePreview()"></div>
+      <div class="field"><label>Designation</label><select onchange="SS.desig=this.value;ssUpdatePreview()">${DESIGS.map(d=>`<option${SS.desig===d?' selected':''}>${d}</option>`).join('')}</select></div>
+    </div>
+    <div class="field"><label>Department</label><select onchange="SS.dept=this.value;ssUpdatePreview()">${DEPTS.map(d=>`<option${SS.dept===d?' selected':''}>${d}</option>`).join('')}</select></div>
+    <div class="row2">
+      <div class="field"><label>Bank A/C No.</label><input type="text" value="${esc(SS.bankAcc)}" oninput="SS.bankAcc=this.value;ssUpdatePreview()"></div>
+      <div class="field"><label>PAN No.</label><input type="text" value="${esc(SS.pan)}" oninput="SS.pan=this.value;ssUpdatePreview()"></div>
+    </div>
+    <div class="doc-sect-ttl" style="margin-top:6px">Earnings (₹)</div>
+    <div class="row2">
+      <div class="field"><label>Basic Pay</label><input type="number" value="${SS.basic}" oninput="SS.basic=+this.value;SS.hra=Math.round(SS.basic*.3);SS.da=Math.round(SS.basic*.12);SS.pf=Math.round(SS.basic*.12);ssRenderFields();ssUpdatePreview()"></div>
+      <div class="field"><label>HRA (30%)</label><input type="number" value="${SS.hra}" oninput="SS.hra=+this.value;ssUpdatePreview()"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>DA (12%)</label><input type="number" value="${SS.da}" oninput="SS.da=+this.value;ssUpdatePreview()"></div>
+      <div class="field"><label>Transport Allowance</label><input type="number" value="${SS.ta}" oninput="SS.ta=+this.value;ssUpdatePreview()"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Medical Allowance</label><input type="number" value="${SS.medical}" oninput="SS.medical=+this.value;ssUpdatePreview()"></div>
+      <div class="field"><label>Special Allowance</label><input type="number" value="${SS.special}" oninput="SS.special=+this.value;ssUpdatePreview()"></div>
+    </div>
+    <div class="doc-sect-ttl" style="margin-top:6px;color:#78350f">Deductions (₹)</div>
+    <div class="row2">
+      <div class="field"><label>Provident Fund (12%)</label><input type="number" value="${SS.pf}" oninput="SS.pf=+this.value;ssUpdatePreview()"></div>
+      <div class="field"><label>Professional Tax</label><input type="number" value="${SS.profTax}" oninput="SS.profTax=+this.value;ssUpdatePreview()"></div>
+    </div>
+    <div class="field"><label>TDS / Income Tax</label><input type="number" value="${SS.tds}" oninput="SS.tds=+this.value;ssUpdatePreview()"></div>
+    <div class="field"><label>Authorized Signatory</label><input type="text" value="${esc(SS.authSig)}" oninput="SS.authSig=this.value;ssUpdatePreview()"></div>`;
+}
+
+function ssUpdatePreview(){
+  const gross=SS.basic+SS.hra+SS.da+SS.ta+SS.medical+SS.special;
+  const totDed=SS.pf+SS.profTax+SS.tds;
+  const net=gross-totDed;
+  const period=(SS.month||'—')+' '+(SS.year||'');
+  setText('ss-emp-name',SS.name||'—');setText('ss-emp-id',SS.empId||'—');
+  setText('ss-desig',SS.desig||'—');setText('ss-dept',SS.dept||'—');
+  setText('ss-bank',SS.bankAcc||'—');setText('ss-pan',SS.pan||'—');
+  setText('ss-period',period);setText('ss-period2',period);
+  setText('ss-gross',fmtAmt(gross));setText('ss-total-ded',fmtAmt(totDed));
+  setText('ss-net',fmtAmt(net));setText('ss-net-words',numToWords(net));
+  setText('ss-auth-sig',SS.authSig||'—');setText('ss-emp-sig',SS.name||'—');
+  const rh=rows=>rows.map(r=>`<div class="ss-col-row"><span class="ss-col-lbl">${r[0]}</span><span class="ss-col-val">₹ ${fmtAmt(r[1])}</span></div>`).join('');
+  document.getElementById('ss-earn-rows').innerHTML=rh([['Basic Pay',SS.basic],['House Rent Allowance (HRA)',SS.hra],['Dearness Allowance (DA)',SS.da],['Transport Allowance (TA)',SS.ta],['Medical Allowance',SS.medical],['Special Allowance',SS.special]]);
+  document.getElementById('ss-ded-rows').innerHTML=rh([['Provident Fund (PF 12%)',SS.pf],['Professional Tax',SS.profTax],['TDS / Income Tax',SS.tds]]);
+}
+
+function ssResetAll(){
+  ['name','empId','desig','dept','month','year','bankAcc','pan','authSig'].forEach(k=>SS[k]='');
+  ['basic','hra','da','ta','medical','special','pf','profTax','tds'].forEach(k=>SS[k]=0);
+  ssRenderFields();ssUpdatePreview();
+}
+
+async function ssDownloadPNG(){
+  const namePart=(SS.name||'Salary_Slip').replace(/\s+/g,'_').replace(/[^a-z0-9_]/gi,'');
+  await docDownloadPNG(document.getElementById('salary-doc'),document.getElementById('btn-dl-salary'),namePart+'_Salary_Slip_PIONEER_COLLEGE');
+}
+
+// ── SHARED DOCUMENT DOWNLOAD ──────────────────────────────
+async function docDownloadPNG(el,btn,filename){
+  if(typeof html2canvas==='undefined'){alert('html2canvas is still loading — please try again.');return;}
+  const overlay=document.getElementById('dl-overlay');
+  btn.disabled=true;overlay.classList.add('show');
+  const savedShadow=el.style.boxShadow;
+  el.style.boxShadow='none';
+  await new Promise(r=>setTimeout(r,60));
+  const W=el.offsetWidth,H=el.offsetHeight;
+  const opts=scale=>({scale,useCORS:true,allowTaint:true,backgroundColor:'#ffffff',logging:false,imageTimeout:10000,width:W,height:H,
+    onclone:(_d,c)=>{c.style.boxShadow='none';let p=c.parentElement;while(p&&p.tagName!=='BODY'){p.style.background='transparent';p.style.backgroundColor='transparent';p=p.parentElement;}}
+  });
+  try{
+    const canvas=await html2canvas(el,opts(4));
+    canvas.toBlob(async blob=>{
+      let final=blob;
+      if(blob.size<80*1024){const big=await html2canvas(el,opts(6));final=await new Promise(r=>big.toBlob(r,'image/png'));}
+      const url=URL.createObjectURL(final);
+      const a=document.createElement('a');a.href=url;a.download=filename+'.png';a.click();
+      setTimeout(()=>URL.revokeObjectURL(url),3000);
+    },'image/png');
+  }catch(err){alert('Download failed: '+err.message);}
+  finally{el.style.boxShadow=savedShadow;overlay.classList.remove('show');btn.disabled=false;}
+}
 </script>
 </body>
 </html>
