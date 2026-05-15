@@ -1,0 +1,88 @@
+﻿/* Collapsible FAQ and syllabus panels */
+.accordion { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.accordion-item {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+
+.accordion-item.is-open {
+  border-color: var(--color-primary-light);
+}
+
+.accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.accordion-trigger:hover {
+  background-color: var(--color-bg-secondary);
+}
+
+.accordion-item.is-open .accordion-trigger {
+  background-color: var(--color-primary-ghost);
+}
+
+.accordion-trigger__text {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+  flex: 1;
+  line-height: var(--leading-snug);
+}
+
+.accordion-item.is-open .accordion-trigger__text {
+  color: var(--color-primary);
+}
+
+.accordion-trigger__icon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  transition: transform var(--transition-base);
+}
+
+.accordion-item.is-open .accordion-trigger__icon {
+  transform: rotate(180deg);
+  color: var(--color-primary);
+}
+
+.accordion-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.accordion-panel.is-open {
+  max-height: 1000px;
+}
+
+.accordion-panel__content {
+  padding: var(--space-1) var(--space-5) var(--space-5);
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  border-top: 1px solid var(--color-border);
+}
+
+.accordion-panel__content ul {
+  list-style: disc;
+  padding-left: var(--space-5);
+  margin-top: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}

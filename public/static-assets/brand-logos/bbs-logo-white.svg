@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300" role="img">
+<title>BBS College of Paramedical Sciences — White Logo</title>
+<desc>White version of BBS logo for use on dark or colored backgrounds</desc>
+<defs>
+  <style>
+    .ln  { font-family: Georgia,'Times New Roman',serif; font-size:21px; font-weight:700; fill:#FFFFFF; letter-spacing:0.8px; }
+    .tag { font-family: Georgia,'Times New Roman',serif; font-size:10.5px; fill:#F0D080; letter-spacing:2.5px; font-weight:600; }
+    .bbs { font-family: Georgia,'Times New Roman',serif; font-size:52px; font-weight:700; fill:#FFFFFF; letter-spacing:5px; }
+    .est { font-family: Georgia,'Times New Roman',serif; font-size:10px; fill:#F0D080; letter-spacing:3px; font-weight:600; }
+  </style>
+</defs>
+
+<!-- background dark swatch so white is visible in preview -->
+<rect width="600" height="300" fill="#0C3B6E" rx="6"/>
+
+<!-- ── EMBLEM ── -->
+<circle cx="148" cy="150" r="116" fill="none" stroke="#FFFFFF" stroke-width="2.8"/>
+<circle cx="148" cy="150" r="106" fill="none" stroke="#F0D080" stroke-width="1.1"/>
+<circle cx="148" cy="150" r="105" fill="rgba(255,255,255,0.08)"/>
+
+<path id="ta" d="M 48,123 A 106,106 0 0,1 248,123" fill="none"/>
+<path id="ba" d="M 52,182 A 106,106 0 0,0 244,182" fill="none"/>
+<text font-family="Georgia,serif" font-size="10.5" font-weight="600" fill="#FFFFFF" letter-spacing="1.8">
+  <textPath href="#ta" startOffset="50%" text-anchor="middle">COLLEGE OF PARAMEDICAL SCIENCES</textPath>
+</text>
+<text font-family="Georgia,serif" font-size="10" font-weight="600" fill="#F0D080" letter-spacing="1.8">
+  <textPath href="#ba" startOffset="50%" text-anchor="middle">VARANASI  ·  UTTAR PRADESH</textPath>
+</text>
+
+<!-- Open book -->
+<path d="M122,170 Q142,154 148,161 L148,198 Q137,194 122,202 Z" fill="rgba(255,255,255,0.15)" stroke="#F0D080" stroke-width="1.1"/>
+<path d="M174,170 Q154,154 148,161 L148,198 Q159,194 174,202 Z" fill="rgba(255,255,255,0.15)" stroke="#F0D080" stroke-width="1.1"/>
+<line x1="148" y1="161" x2="148" y2="198" stroke="#F0D080" stroke-width="1.4"/>
+<line x1="130" y1="173" x2="146" y2="168" stroke="#F0D080" stroke-width="0.65" opacity="0.7"/>
+<line x1="130" y1="179" x2="146" y2="175" stroke="#F0D080" stroke-width="0.65" opacity="0.7"/>
+<line x1="131" y1="185" x2="146" y2="182" stroke="#F0D080" stroke-width="0.65" opacity="0.7"/>
+<line x1="166" y1="173" x2="150" y2="168" stroke="#F0D080" stroke-width="0.65" opacity="0.7"/>
+<line x1="166" y1="179" x2="150" y2="175" stroke="#F0D080" stroke-width="0.65" opacity="0.7"/>
+<line x1="165" y1="185" x2="150" y2="182" stroke="#F0D080" stroke-width="0.65" opacity="0.7"/>
+<rect x="107" y="199" width="82" height="5" rx="2" fill="#F0D080" opacity="0.35"/>
+
+<!-- Medical cross -->
+<rect x="140" y="110" width="16" height="38" rx="3" fill="#FFFFFF"/>
+<rect x="131" y="120" width="34" height="16" rx="3" fill="#FFFFFF"/>
+<rect x="143" y="113" width="4" height="9" rx="1.5" fill="#F0D080" opacity="0.7"/>
+<rect x="135" y="123" width="7" height="4" rx="1.5" fill="#F0D080" opacity="0.7"/>
+
+<circle cx="100" cy="150" r="3" fill="#F0D080"/>
+<circle cx="196" cy="150" r="3" fill="#F0D080"/>
+<line x1="107" y1="207" x2="189" y2="207" stroke="#F0D080" stroke-width="1.1"/>
+
+<!-- ── WORDMARK ── -->
+<text x="390" y="112" class="bbs" text-anchor="middle">BBS</text>
+<rect x="252" y="122" width="276" height="2.2" rx="1" fill="#F0D080"/>
+<rect x="280" y="127" width="220" height="0.9" rx="0.5" fill="#F0D080" opacity="0.45"/>
+<text x="390" y="163" class="ln" text-anchor="middle">College of Paramedical</text>
+<text x="390" y="187" class="ln" text-anchor="middle">Sciences</text>
+<text x="390" y="218" class="tag" text-anchor="middle">EXCELLENCE IN HEALTHCARE EDUCATION</text>
+<rect x="268" y="228" width="244" height="0.9" rx="0.5" fill="#F0D080" opacity="0.45"/>
+<rect x="252" y="231" width="276" height="2" rx="1" fill="#FFFFFF" opacity="0.18"/>
+<text x="390" y="258" class="est" text-anchor="middle">EST. 2005</text>
+</svg>

@@ -1,0 +1,112 @@
+﻿/* PillFilterTabs ContentPanelTabs */
+/* Pill filter tabs */
+.pill-tabs {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pill-tabs__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-border);
+  background: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.pill-tabs__item:hover {
+  border-color: var(--color-primary-light);
+  color: var(--color-primary);
+  background-color: var(--color-primary-ghost);
+}
+
+.pill-tabs__item.is-active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.pill-tabs__icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.pill-tabs__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  background: rgba(255,255,255,0.25);
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: var(--font-bold);
+  padding: 0 var(--space-1);
+}
+
+.pill-tabs__item:not(.is-active) .pill-tabs__count {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-muted);
+}
+
+/* Content panel tabs (course detail) */
+.content-tabs__nav {
+  display: flex;
+  border-bottom: 2px solid var(--color-border);
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.content-tabs__nav::-webkit-scrollbar { display: none; }
+
+.content-tabs__tab {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-muted);
+  border: none;
+  background: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.content-tabs__tab:hover { color: var(--color-primary); }
+
+.content-tabs__tab.is-active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-accent);
+}
+
+.content-tabs__tab-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.content-tabs__panel {
+  padding-top: var(--space-6);
+}

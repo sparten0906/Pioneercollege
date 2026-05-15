@@ -1,0 +1,211 @@
+﻿import type { DiplomaData } from '../../types/diploma.types'
+import { getCourseImage } from '../../utils/asset-path-resolver'
+
+export const ophthalmicCourses: DiplomaData[] = [
+  {
+    id:             'ophthalmic-008',
+    slug:           'diploma-in-ophthalmic-assistant',
+    type:           'regular',
+    category:       'ophthalmic',
+    title:          'Diploma in Ophthalmic Assistant',
+    shortTitle:     'D. Ophthalmic Asst.',
+    duration:       '1 Year',
+    durationMonths: 12,
+    totalSeats:     40,
+    eligibility:    '10+2 with Science (PCB) from a recognised board',
+    minPercentage:  45,
+    description:
+      'The Diploma in Ophthalmic Assistant prepares students to assist ophthalmologists in eye clinics and hospitals. The course covers vision testing, tonometry, slit lamp operation, fundus photography, and patient counselling for common eye conditions.',
+    highlights: [
+      'Training in slit lamp, tonometer, fundus camera and auto-refractometer',
+      'Visual acuity and colour vision testing',
+      'Pre and post-operative care for cataract and LASIK patients',
+      'Clinical posting in eye hospitals and vision centres',
+      'Government job opportunities under National Programme for Control of Blindness',
+    ],
+    syllabus: [
+      {
+        semester: 1,
+        subjects: [
+          'Anatomy & Physiology of the Eye',
+          'Optics & Refraction Basics',
+          'Ophthalmic Instruments & Equipment',
+          'Visual Acuity Testing & Perimetry',
+          'Common Eye Diseases',
+        ],
+      },
+      {
+        semester: 2,
+        subjects: [
+          'Slit Lamp Examination Techniques',
+          'Tonometry & Glaucoma Screening',
+          'Fundus Photography',
+          'Low Vision Aids',
+          'Clinical Internship & OPD Duties',
+        ],
+      },
+    ],
+    fees: {
+      admissionFee:       7000,
+      tuitionFeePerYear:  30000,
+      examFeePerYear:     3500,
+      totalFee:           40500,
+      currency:           'INR',
+    },
+    careerOpportunities: [
+      { role: 'Ophthalmic Assistant',       sector: 'both',       description: 'Assist ophthalmologists in eye OPDs and theatres' },
+      { role: 'Vision Screener',            sector: 'government', description: 'Conduct community-level vision screening camps' },
+      { role: 'Optical Shop Refractionist', sector: 'private',    description: 'Perform refraction and recommend spectacle prescriptions' },
+    ],
+    thumbnail:    getCourseImage('diploma-ophthalmic.webp'),
+    isFeatured:   false,
+    isActive:     true,
+    affiliation:  'UP Paramedical Council, Lucknow',
+    recognizedBy: ['Ministry of Health & Family Welfare', 'UP Paramedical Council'],
+  },
+
+  {
+    id:             'optometry-009',
+    slug:           'diploma-in-optometry-and-contact-lens-technician',
+    type:           'regular',
+    category:       'ophthalmic',
+    title:          'Diploma in Optometry and Contact Lens Technician',
+    shortTitle:     'D. Optometry & CL',
+    duration:       '2 Years',
+    durationMonths: 24,
+    totalSeats:     40,
+    eligibility:    '10+2 with Science (PCB/PCM) from a recognised board',
+    minPercentage:  45,
+    description:
+      'This two-year programme provides comprehensive training in optometry — including refraction, contact lens fitting, low vision assessment, and binocular vision — along with practical skills in contact lens dispensing. Graduates can practice as optometrists or open their own optical practice.',
+    highlights: [
+      'Training in objective and subjective refraction',
+      'Soft, RGP and specialty contact lens fitting',
+      'Binocular vision assessment and orthoptic exercises',
+      'Paediatric vision and school screening techniques',
+      'Eligibility to run an optical shop or vision centre',
+    ],
+    syllabus: [
+      {
+        semester: 1,
+        subjects: [
+          'Anatomy & Physiology of the Eye',
+          'Geometric & Physical Optics',
+          'Ocular Pharmacology Basics',
+          'Refractive Errors & Their Correction',
+          'Introduction to Contact Lenses',
+        ],
+      },
+      {
+        semester: 2,
+        subjects: [
+          'Clinical Refraction Techniques',
+          'Contact Lens Materials & Design',
+          'Soft Contact Lens Fitting',
+          'Tonometry & Slit Lamp',
+          'Low Vision Aids & Rehabilitation',
+        ],
+      },
+      {
+        semester: 3,
+        subjects: [
+          'RGP & Specialty Contact Lenses',
+          'Binocular Vision & Orthoptics',
+          'Paediatric Optometry',
+          'Ocular Disease Recognition',
+          'Contact Lens Practical II',
+        ],
+      },
+      {
+        semester: 4,
+        subjects: [
+          'Contact Lens Aftercare & Complications',
+          'Community Eye Health',
+          'Practice Management & Ethics',
+          'Clinical Internship',
+          'Research Project',
+        ],
+      },
+    ],
+    fees: {
+      admissionFee:       8000,
+      tuitionFeePerYear:  36000,
+      examFeePerYear:     4000,
+      totalFee:           88000,
+      currency:           'INR',
+    },
+    careerOpportunities: [
+      { role: 'Optometrist',              sector: 'both',    description: 'Conduct comprehensive eye examinations' },
+      { role: 'Contact Lens Practitioner',sector: 'private', description: 'Fit and dispense contact lenses' },
+      { role: 'Vision Therapist',         sector: 'private', description: 'Provide orthoptic and vision therapy' },
+      { role: 'Optical Entrepreneur',     sector: 'private', description: 'Own and operate optical shop or vision centre' },
+    ],
+    thumbnail:    getCourseImage('diploma-optometry.webp'),
+    isFeatured:   true,
+    isActive:     true,
+    affiliation:  'UP Paramedical Council, Lucknow',
+    recognizedBy: ['Ministry of Health & Family Welfare', 'UP Paramedical Council'],
+  },
+
+  {
+    id:             'contact-lens-010',
+    slug:           'diploma-in-contact-lens-technician',
+    type:           'regular',
+    category:       'ophthalmic',
+    title:          'Diploma in Contact Lens Technician',
+    shortTitle:     'D. Contact Lens Tech.',
+    duration:       '1 Year',
+    durationMonths: 12,
+    totalSeats:     40,
+    eligibility:    '10+2 from a recognised board',
+    minPercentage:  40,
+    description:
+      'The Diploma in Contact Lens Technician is a focused one-year programme on the fitting, dispensing, and aftercare of all types of contact lenses. Graduates can work in optical retail chains, eye hospitals, and contact lens clinics.',
+    highlights: [
+      'Practical training in fitting soft, coloured and RGP lenses',
+      'Contact lens solution chemistry and hygiene training',
+      'Patient education and compliance counselling',
+      'Growing market — India contact lens market expanding rapidly',
+      'Short duration — quick entry into the workforce',
+    ],
+    syllabus: [
+      {
+        semester: 1,
+        subjects: [
+          'Anatomy of the Eye — Anterior Segment',
+          'Contact Lens Types & Materials',
+          'Fitting Techniques — Soft Lenses',
+          'Contact Lens Solutions & Care',
+          'Customer Communication Skills',
+        ],
+      },
+      {
+        semester: 2,
+        subjects: [
+          'RGP and Specialty Lens Fitting',
+          'Contact Lens Complications',
+          'Aftercare & Follow-up Protocols',
+          'Coloured & Cosmetic Lenses',
+          'Clinical Internship — Optical Practice',
+        ],
+      },
+    ],
+    fees: {
+      admissionFee:       6000,
+      tuitionFeePerYear:  26000,
+      examFeePerYear:     3000,
+      totalFee:           35000,
+      currency:           'INR',
+    },
+    careerOpportunities: [
+      { role: 'Contact Lens Technician',   sector: 'private', description: 'Fit and dispense contact lenses in optical outlets' },
+      { role: 'Optical Retail Associate',  sector: 'private', description: 'Work in branded optical retail chains (Lenskart, Vision Express)' },
+      { role: 'Eye Clinic Technician',     sector: 'both',    description: 'Support contact lens clinics in eye hospitals' },
+    ],
+    thumbnail:    getCourseImage('diploma-contact-lens.webp'),
+    isFeatured:   false,
+    isActive:     true,
+    affiliation:  'UP Paramedical Council, Lucknow',
+    recognizedBy: ['Ministry of Health & Family Welfare', 'UP Paramedical Council'],
+  },
+]

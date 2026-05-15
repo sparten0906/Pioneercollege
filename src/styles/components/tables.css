@@ -1,0 +1,77 @@
+﻿/* Fee and eligibility tables */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.data-table thead {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+.data-table th {
+  padding: var(--space-4) var(--space-5);
+  font-family: var(--font-primary);
+  font-weight: var(--font-semibold);
+  font-size: var(--text-sm);
+  text-align: left;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.data-table th:first-child { border-top-left-radius: var(--radius-lg); }
+.data-table th:last-child  { border-top-right-radius: var(--radius-lg); }
+
+.data-table tbody tr {
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color var(--transition-fast);
+}
+
+.data-table tbody tr:last-child { border-bottom: none; }
+
+.data-table tbody tr:hover {
+  background-color: var(--color-primary-ghost);
+}
+
+.data-table tbody tr:nth-child(even) {
+  background-color: var(--color-bg-secondary);
+}
+
+.data-table tbody tr:nth-child(even):hover {
+  background-color: var(--color-primary-ghost);
+}
+
+.data-table td {
+  padding: var(--space-4) var(--space-5);
+  color: var(--color-text-secondary);
+  vertical-align: middle;
+}
+
+.data-table td:first-child {
+  font-family: var(--font-primary);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+}
+
+.data-table__highlight {
+  font-weight: var(--font-semibold);
+  color: var(--color-primary);
+}
+
+.data-table__total-row {
+  background-color: var(--color-primary-ghost) !important;
+  font-weight: var(--font-semibold);
+}
+
+.data-table__total-row td {
+  color: var(--color-primary);
+  font-weight: var(--font-semibold);
+}

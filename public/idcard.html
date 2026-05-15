@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ID Card Generator — PIONEER COLLEGE</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue-dark:#0f2451;--blue:#1a3a6b;--blue-mid:#2563eb;--blue-light:#eff6ff;
+  --green-dark:#052e16;--green:#14532d;--green-mid:#16a34a;--green-light:#f0fdf4;
+  --gold:#fbbf24;--surface:#fff;--bg:#e8edf5;--text:#1e293b;--muted:#64748b;
+  --radius:12px;--shadow:0 4px 24px rgba(0,0,0,.12);
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);min-height:100vh;color:var(--text)}
+
+/* ── TOPBAR ── */
+.topbar{background:linear-gradient(135deg,#0f2451,#1a3a6b);color:#fff;padding:14px 28px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.topbar-seal{width:46px;height:46px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.topbar-seal span:first-child{font-family:'Poppins',sans-serif;font-size:13px;font-weight:800;color:#0f2451;line-height:1}
+.topbar-seal span:last-child{font-size:7px;font-weight:700;color:#2563eb;letter-spacing:.04em;line-height:1;margin-top:1px}
+.topbar-info h1{font-family:'Poppins',sans-serif;font-size:1.1rem;font-weight:800;letter-spacing:.01em}
+.topbar-info p{font-size:.7rem;opacity:.65;margin-top:2px}
+.topbar-badge{margin-left:auto;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:4px 12px;border-radius:999px;font-size:.68rem;font-weight:700;letter-spacing:.06em;white-space:nowrap}
+
+/* ── LAYOUT ── */
+.page{max-width:1240px;margin:0 auto;padding:28px 20px;display:grid;grid-template-columns:370px 1fr;gap:28px}
+@media(max-width:820px){.page{grid-template-columns:1fr}}
+
+/* ── PANELS ── */
+.left{display:flex;flex-direction:column;gap:18px}
+.panel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.panel-head{padding:13px 18px;background:#f8fafc;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;gap:9px;font-size:.8rem;font-weight:700;color:var(--text)}
+.panel-body{padding:18px}
+
+/* ── TYPE TOGGLE ── */
+.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.type-btn{padding:14px 8px;border:2px solid #e2e8f0;border-radius:10px;background:#fff;cursor:pointer;text-align:center;font-family:'Inter',sans-serif;transition:all .2s}
+.type-btn:hover{border-color:#93c5fd;background:#eff6ff}
+.type-btn.active[data-t=student]{border-color:#2563eb;background:#eff6ff;color:#1d4ed8}
+.type-btn.active[data-t=teacher]{border-color:#16a34a;background:#f0fdf4;color:#15803d}
+.type-icon{font-size:1.6rem;display:block;margin-bottom:4px}
+.type-label{font-size:.78rem;font-weight:700}
+
+/* ── AUTO GENERATE ── */
+.gen-btn{width:100%;padding:13px;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;box-shadow:0 4px 12px rgba(37,99,235,.35)}
+.gen-btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(37,99,235,.45)}
+.gen-btn:active{transform:translateY(0)}
+
+/* ── PHOTO UPLOAD ── */
+.photo-drop{border:2px dashed #cbd5e1;border-radius:10px;padding:18px;text-align:center;cursor:pointer;transition:all .2s;background:#f8fafc}
+.photo-drop:hover{border-color:#93c5fd;background:#eff6ff}
+.photo-drop input{display:none}
+.photo-drop-icon{font-size:1.8rem;margin-bottom:6px}
+.photo-drop-text{font-size:.78rem;color:var(--muted)}
+.photo-drop-sub{font-size:.68rem;color:#94a3b8;margin-top:2px}
+
+/* ── FORM FIELDS ── */
+.fields{display:flex;flex-direction:column;gap:11px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.field input,.field select{padding:8px 11px;border:1.5px solid #e2e8f0;border-radius:8px;font-family:'Inter',sans-serif;font-size:.83rem;color:var(--text);background:#fafafa;transition:all .2s;width:100%}
+.field input:focus,.field select:focus{outline:none;border-color:#93c5fd;box-shadow:0 0 0 3px rgba(147,197,253,.25);background:#fff}
+
+/* ── ACTION BUTTONS ── */
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn-print{flex:1;min-width:120px;padding:13px 16px;background:linear-gradient(135deg,#1e293b,#334155);color:#fff;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .2s;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.btn-print:hover{background:linear-gradient(135deg,#334155,#475569);transform:translateY(-1px)}
+.btn-dl{flex:1;min-width:120px;padding:13px 16px;background:linear-gradient(135deg,#0f766e,#0d9488);color:#fff;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .2s;box-shadow:0 4px 12px rgba(13,148,136,.3)}
+.btn-dl:hover{background:linear-gradient(135deg,#0d9488,#14b8a6);transform:translateY(-1px)}
+.btn-dl:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.btn-reset{padding:13px 14px;background:#fff;color:var(--muted);border:1.5px solid #e2e8f0;border-radius:10px;font-family:'Inter',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-reset:hover{border-color:#cbd5e1;background:#f8fafc}
+
+/* ── RIGHT / PREVIEW ── */
+.right{display:flex;flex-direction:column;align-items:center;gap:22px}
+.preview-lbl{font-size:.72rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.1em}
+
+/* ── ID CARD ── */
+.card-wrap{width:100%;max-width:540px}
+.id-card{width:100%;border-radius:20px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.28),0 8px 24px rgba(0,0,0,.15),inset 0 1px 0 rgba(255,255,255,.25);position:relative;transition:transform .25s,box-shadow .25s}
+.id-card:hover{transform:translateY(-5px);box-shadow:0 32px 80px rgba(0,0,0,.32),0 12px 32px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.25)}
+.id-card::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 14px,rgba(255,255,255,.025) 14px,rgba(255,255,255,.025) 15px),radial-gradient(circle at 80% 10%,rgba(255,255,255,.09) 0%,transparent 45%),radial-gradient(circle at 15% 90%,rgba(255,255,255,.06) 0%,transparent 35%);pointer-events:none;z-index:0}
+
+.id-card.student{background:linear-gradient(150deg,#0a1c3e 0%,#1a3a6b 45%,#1e4a85 100%)}
+.id-card.teacher{background:linear-gradient(150deg,#021a10 0%,#14532d 45%,#186638 100%)}
+
+/* Card Header */
+.c-head{padding:12px 18px 11px;display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+.c-head::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:rgba(255,255,255,.18)}
+
+/* Logo crop — shows only the circular emblem from the SVG */
+.c-logo-crop{width:50px;height:50px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1.5px solid rgba(255,255,255,.4);box-shadow:0 2px 8px rgba(0,0,0,.3)}
+/* SVG 600×300; emblem at cx=148,cy=150,r=116 → display 130×65, shift -7px/-7px */
+.c-logo-img{width:130px;height:65px;display:block;margin-left:-7px;margin-top:-7px}
+
+.c-college{flex:1;min-width:0}
+.c-college-name{font-family:'Poppins',sans-serif;font-size:.95rem;font-weight:800;color:#fff;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c-college-sub{font-size:.58rem;color:rgba(255,255,255,.6);margin-top:1px}
+.c-badge{flex-shrink:0;font-size:.55rem;font-weight:800;padding:3px 9px;border-radius:4px;letter-spacing:.07em;text-transform:uppercase}
+.student .c-badge{background:rgba(251,191,36,.18);border:1px solid rgba(251,191,36,.45);color:#fbbf24}
+.teacher .c-badge{background:rgba(134,239,172,.18);border:1px solid rgba(134,239,172,.45);color:#86efac}
+
+/* Card Body — full width, no photo column by default */
+.c-body{padding:16px 20px 12px;position:relative;z-index:1;overflow:hidden}
+
+/* Photo — hidden until uploaded, floats top-right */
+.c-photo{width:74px;height:90px;border-radius:8px;border:2px solid rgba(255,255,255,.35);overflow:hidden;float:right;margin:0 0 10px 14px;display:none}
+.c-photo.has-photo{display:block}
+.c-photo img{width:100%;height:100%;object-fit:cover}
+
+.c-name{font-family:'Poppins',sans-serif;font-size:1.3rem;font-weight:800;color:#fff;line-height:1.2;word-break:break-word}
+.c-uid{font-size:.62rem;font-weight:600;color:rgba(255,255,255,.4);font-family:'Courier New',monospace;letter-spacing:.07em;margin-top:3px;margin-bottom:0}
+.c-email{font-size:.6rem;color:rgba(255,255,255,.5);margin-top:3px;margin-bottom:0;word-break:break-all;line-height:1.3}
+.c-hr{height:1px;background:rgba(255,255,255,.15);margin:10px 0;clear:both}
+.c-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 28px}
+.c-field{display:flex;flex-direction:column;gap:2px}
+.c-field-lbl{font-size:.55rem;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em}
+.c-field-val{font-size:.78rem;font-weight:600;color:rgba(255,255,255,.92);line-height:1.3}
+
+/* Extra row (DOB + Blood) */
+.c-extra{padding:0 20px 10px;display:grid;grid-template-columns:1fr 1fr;gap:8px 28px;position:relative;z-index:1}
+
+/* Number strip */
+.c-strip{padding:4px 20px 6px;font-family:'Courier New',monospace;font-size:.6rem;color:rgba(255,255,255,.22);letter-spacing:.2em;border-top:1px solid rgba(255,255,255,.07);position:relative;z-index:1}
+
+/* Card Footer */
+.c-foot{padding:11px 20px 13px;display:grid;grid-template-columns:56px 1fr 112px;gap:12px;align-items:end;border-top:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.2);position:relative;z-index:1}
+.c-qr{width:52px;height:52px;border-radius:6px;overflow:hidden;background:#fff;padding:2px;flex-shrink:0;align-self:center}
+.c-qr canvas,.c-qr img{width:100%;height:100%;display:block}
+.c-valid{text-align:center;align-self:center}
+.c-valid-lbl{font-size:.52rem;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.07em}
+.c-valid-val{font-size:.82rem;font-weight:700;color:rgba(255,255,255,.9)}
+
+/* Signature area */
+.c-sig{text-align:right;display:flex;flex-direction:column;align-items:flex-end}
+.c-sig-name{font-family:'Dancing Script',cursive;font-size:1.1rem;font-weight:700;color:rgba(255,255,255,.95);line-height:1;margin-bottom:5px;white-space:nowrap;max-width:110px;overflow:hidden}
+.c-sig-line{height:1px;background:rgba(255,255,255,.35);width:100px;margin-bottom:3px}
+.c-sig-lbl{font-size:.5rem;color:rgba(255,255,255,.4);letter-spacing:.04em}
+
+/* Bottom accent stripe */
+.c-accent{height:6px}
+.student .c-accent{background:linear-gradient(90deg,#d97706,#fbbf24,#fde68a,#fbbf24,#d97706)}
+.teacher .c-accent{background:linear-gradient(90deg,#15803d,#22c55e,#4ade80,#22c55e,#15803d)}
+
+/* ── STATS ROW ── */
+.stats{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.stat{background:#fff;border-radius:10px;padding:10px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.stat-val{font-family:'Poppins',sans-serif;font-size:1.1rem;font-weight:800;color:#1a3a6b}
+.stat-lbl{font-size:.67rem;color:var(--muted);margin-top:1px}
+
+/* ── DOWNLOAD BUTTON (right panel) ── */
+.btn-dl-main{width:100%;max-width:540px;padding:14px 24px;background:linear-gradient(135deg,#0f766e,#0d9488);color:#fff;border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .25s;box-shadow:0 6px 20px rgba(13,148,136,.38),0 2px 6px rgba(0,0,0,.12)}
+.btn-dl-main:hover{background:linear-gradient(135deg,#0d9488,#14b8a6);transform:translateY(-2px);box-shadow:0 10px 28px rgba(13,148,136,.45),0 4px 10px rgba(0,0,0,.14)}
+.btn-dl-main:active{transform:translateY(0)}
+.btn-dl-main:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* ── DOWNLOAD OVERLAY ── */
+#dl-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:14px;color:#fff;font-size:.95rem;font-weight:600}
+#dl-overlay.show{display:flex}
+.dl-spinner{width:36px;height:36px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── PRINT ── */
+@media print{
+  .topbar,.left,.actions,.preview-lbl,.stats{display:none!important}
+  body{background:#fff!important}
+  .page{display:block!important;padding:0!important}
+  .right{align-items:center!important}
+  .card-wrap{max-width:85.6mm!important}
+  .id-card{border-radius:8px!important;box-shadow:none!important;transform:none!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  @page{size:A4;margin:15mm}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="topbar-seal">
+    <span>PC</span>
+    <span>EST.2005</span>
+  </div>
+  <div class="topbar-info">
+    <h1>PIONEER COLLEGE — ID Card Generator</h1>
+    <p>Bahraich, Uttar Pradesh &nbsp;|&nbsp; UP Paramedical Council Affiliated</p>
+  </div>
+  <div class="topbar-badge">Official Tool</div>
+</header>
+
+<!-- Download overlay -->
+<div id="dl-overlay">
+  <div class="dl-spinner"></div>
+  <span>Generating PNG…</span>
+</div>
+
+<!-- PAGE -->
+<div class="page">
+
+  <!-- LEFT CONTROLS -->
+  <div class="left">
+
+    <!-- Type -->
+    <div class="panel">
+      <div class="panel-head">🪪 Card Type</div>
+      <div class="panel-body">
+        <div class="type-grid">
+          <button class="type-btn active" data-t="student" onclick="setType('student')">
+            <span class="type-icon">🎓</span>
+            <span class="type-label">Student</span>
+          </button>
+          <button class="type-btn" data-t="teacher" onclick="setType('teacher')">
+            <span class="type-icon">👩‍🏫</span>
+            <span class="type-label">Teacher</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Generate -->
+    <div class="panel">
+      <div class="panel-head">✨ Quick Generate</div>
+      <div class="panel-body">
+        <button class="gen-btn" onclick="autoGenerate()">🎲&nbsp; Auto Generate Random Card</button>
+      </div>
+    </div>
+
+    <!-- Photo -->
+    
+
+    <!-- Fields -->
+    <div class="panel">
+      <div class="panel-head">📝 Card Details</div>
+      <div class="panel-body">
+        <div class="fields" id="fields"></div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="btn-print" onclick="window.print()">🖨️ Print / PDF</button>
+      <button class="btn-reset" onclick="resetAll()" title="Reset">↩ Reset</button>
+    </div>
+
+  </div>
+
+  <!-- RIGHT PREVIEW -->
+  <div class="right">
+    <div class="preview-lbl">Live Preview</div>
+
+    <div class="card-wrap">
+      <div class="id-card student" id="id-card">
+
+        <!-- Header -->
+        <div class="c-head">
+          <div class="c-logo-crop">
+            <img src="./static-assets/brand-logos/bbs-logo-white.svg" class="c-logo-img" alt="PIONEER COLLEGE Logo">
+          </div>
+          <div class="c-college">
+            <div class="c-college-name">PIONEER COLLEGE</div>
+            <div class="c-college-sub">Bahraich, Uttar Pradesh &nbsp;·&nbsp; UP Paramedical Council Affiliated</div>
+          </div>
+          <div class="c-badge" id="c-badge">STUDENT ID</div>
+        </div>
+
+        <!-- Body — photo hidden by default, floats right when uploaded -->
+        <div class="c-body">
+          <div class="c-photo" id="c-photo"></div>
+          <div class="c-name" id="c-name">—</div>
+          <div class="c-uid" id="c-uid">PC-XXX-XXXX-XXXX</div>
+          <div class="c-email" id="c-email">—</div>
+          <div class="c-hr"></div>
+          <div class="c-grid" id="c-grid"></div>
+        </div>
+
+        <!-- Extra row -->
+        <div class="c-extra">
+          <div class="c-field">
+            <div class="c-field-lbl" id="c-date-lbl">Date of Birth</div>
+            <div class="c-field-val" id="c-date-val">—</div>
+          </div>
+          <div class="c-field">
+            <div class="c-field-lbl">Blood Group</div>
+            <div class="c-field-val" id="c-blood">—</div>
+          </div>
+        </div>
+
+        <!-- Number strip -->
+        <div class="c-strip" id="c-strip">████ &nbsp;████ &nbsp;████ &nbsp;████</div>
+
+        <!-- Footer -->
+        <div class="c-foot">
+          <div class="c-qr" id="c-qr"></div>
+          <div class="c-valid">
+            <div class="c-valid-lbl">Valid Until</div>
+            <div class="c-valid-val" id="c-valid">—</div>
+          </div>
+          <div class="c-sig">
+            <div class="c-sig-name" id="c-sig-name"></div>
+            <div class="c-sig-line"></div>
+            <div class="c-sig-lbl">Authorized Signatory</div>
+          </div>
+        </div>
+
+        <div class="c-accent"></div>
+      </div>
+    </div>
+
+    <!-- Download button — placed right below the card -->
+    <button class="btn-dl-main" id="btn-dl" onclick="downloadPNG()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download ID Card as PNG
+    </button>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat"><div class="stat-val">16</div><div class="stat-lbl">Diploma Courses</div></div>
+      <div class="stat"><div class="stat-val">2000+</div><div class="stat-lbl">Alumni</div></div>
+      <div class="stat"><div class="stat-val">A</div><div class="stat-lbl">NAAC Grade</div></div>
+      <div class="stat"><div class="stat-val">86%</div><div class="stat-lbl">Placement Rate</div></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+// ── DATA ──────────────────────────────────────────────────
+const MALE   = ['Rahul','Amit','Rohit','Arjun','Vikram','Ravi','Sanjay','Nikhil','Pradeep','Ankit','Varun','Suresh','Manoj','Ajay','Vijay','Rakesh','Deepak','Pankaj','Kartik','Gaurav','Vivek','Mohit','Sumit','Shubham','Aman','Aditya','Karan','Rohan','Harshit','Tushar','Vishal','Naveen','Manish','Arun','Saurabh','Yash','Ayush','Nitin','Siddharth','Himanshu'];
+const FEMALE = ['Priya','Sunita','Anjali','Pooja','Neha','Deepa','Anita','Kavita','Nisha','Seema','Rani','Rekha','Mona','Sonia','Divya','Shruti','Swati','Meena','Usha','Kiran','Sneha','Ritu','Shweta','Archana','Pallavi','Jyoti','Mamta','Vandana','Reena','Monika','Nidhi','Radhika','Pinki','Sarita','Laxmi','Sunaina','Tamanna','Kajal','Asha','Kusum'];
+const LAST   = ['Sharma','Kumar','Singh','Verma','Gupta','Pandey','Mishra','Tiwari','Yadav','Joshi','Srivastava','Pathak','Dubey','Chaurasia','Maurya','Prasad','Tripathi','Shukla','Dwivedi','Agarwal','Chauhan','Rajput','Saxena','Dixit','Bajpai','Awasthi','Upadhyay','Mehrotra','Chandra','Keshari'];
+const COURSES = ['D. Medical Lab Technician','D. Radiography','D. Dialysis Technology','D. Optometry','D. Ophthalmic Technology','D. Dental Hygiene','D. Neuro Technology','D. Cardiac Technology','D. Critical Care Technology','D. MRI Technology','D. CT Technology','D. X-Ray & ECG','D. Medical Assistant','D. Contact Lens Optician','D. Dental Mechanics','D. OT Technology'];
+const DEPTS   = ['Medical Lab Technology','Radiology & Imaging','Dialysis Technology','Optometry & Ophthalmic','Dental Science','Neuro & Cardiac Tech','Critical Care','Allied Health Sciences'];
+const DESIGS  = ['Professor','Associate Professor','Assistant Professor','Senior Lecturer','Lecturer','Clinical Instructor','Lab Instructor','Head of Department'];
+const QUALS   = ['M.Sc, PhD','M.Sc, B.Ed','MD, DM','MBBS, MD','B.Sc, M.Sc','M.Tech, PhD','M.Phil, PhD','DNB, MBBS','BPT, MPT','B.Optom, M.Optom'];
+const BLOODS  = ['A+','A−','B+','B−','O+','O−','AB+','AB−'];
+const YEARS   = ['1st Year','2nd Year'];
+
+// Authorized signatory pool (principal / registrar names)
+const SIG_NAMES = [
+  'Dr. S.K. Srivastava','Dr. R.K. Pandey','Dr. A.K. Sharma',
+  'Dr. M.L. Gupta','Dr. P.K. Mishra','Dr. V.N. Tripathi',
+  'Dr. C.S. Bajpai','Dr. A.P. Singh','Dr. N.K. Tiwari',
+  'Dr. R.P. Shukla','Dr. D.K. Verma','Dr. H.C. Dwivedi'
+];
+
+// ── STATE ────────────────────────────────────────────────
+let type = 'student';
+let sigName = '';
+const S = { name:'',uid:'',course:'',dept:'',year:'',desig:'',qual:'',dob:'',doj:'',blood:'',valid:'',emergency:'',email:'' };
+
+// ── HELPERS ──────────────────────────────────────────────
+const rand = a => a[Math.floor(Math.random()*a.length)];
+const pad  = (n,l=4) => String(n).padStart(l,'0');
+
+function nameToEmail(name){
+  return (name||'')
+    .replace(/^(Dr\.|Mr\.|Ms\.|Prof\.|Er\.)\s*/i,'')
+    .toLowerCase()
+    .replace(/\s+/g,'.')
+    .replace(/[^a-z0-9.]/g,'')
+    .replace(/\.{2,}/g,'.')
+    .replace(/^\.+|\.+$/g,'')
+    + '@pioneercollege.edu.pl';
+}
+
+function rPhone(){ return rand(['98','97','96','94','93','91','90','89','88','87'])+String(Math.floor(Math.random()*90000000+10000000)); }
+function rDate(y1,y2){ const y=y1+Math.floor(Math.random()*(y2-y1)); return pad(1+Math.floor(Math.random()*28),2)+'/'+pad(1+Math.floor(Math.random()*12),2)+'/'+y; }
+
+function rStudentName(){ const f=Math.random()<.5; return rand(f?FEMALE:MALE)+' '+rand(LAST); }
+function rTeacherName(){ const f=Math.random()<.5; const p=Math.random()<.4?'Dr. ':(f?'Ms. ':'Mr. '); return p+rand(f?FEMALE:MALE)+' '+rand(LAST); }
+
+function stripNum(){
+  const d=(S.uid||'').replace(/\D/g,'').padEnd(16,'0').slice(0,16);
+  return (d.match(/.{1,4}/g)||['████','████','████','████']).join('  ');
+}
+
+// ── AUTO GENERATE ─────────────────────────────────────────
+function autoGenerate(){
+  sigName = rand(SIG_NAMES);
+  if(type==='student'){
+    S.name      = rStudentName();
+    S.email     = nameToEmail(S.name);
+    S.uid       = 'PC-STU-'+new Date().getFullYear()+'-'+pad(Math.floor(Math.random()*9000+1000));
+    S.course    = rand(COURSES);
+    S.dept      = rand(DEPTS);
+    S.year      = rand(YEARS);
+    S.dob       = rDate(2002,2007);
+    S.blood     = rand(BLOODS);
+    S.valid     = (new Date().getFullYear()+1)+'–'+(new Date().getFullYear()+2);
+    S.emergency = rPhone();
+  } else {
+    S.name      = rTeacherName();
+    S.email     = nameToEmail(S.name);
+    S.uid       = 'PC-FAC-'+(2008+Math.floor(Math.random()*14))+'-'+pad(Math.floor(Math.random()*900+100),3);
+    S.desig     = rand(DESIGS);
+    S.dept      = rand(DEPTS);
+    S.qual      = rand(QUALS);
+    S.doj       = rDate(2008,2023);
+    S.blood     = rand(BLOODS);
+    S.valid     = new Date().getFullYear()+'–'+(new Date().getFullYear()+1);
+    S.emergency = rPhone();
+  }
+  renderFields();
+  updateCard();
+  updateQR();
+}
+
+// ── FIELD HTML ────────────────────────────────────────────
+function renderFields(){
+  const el = document.getElementById('fields');
+  if(type==='student'){
+    el.innerHTML = `
+      <div class="field"><label>Full Name</label>
+        <input type="text" placeholder="Enter student name" value="${esc(S.name)}" oninput="S.name=this.value;S.email=nameToEmail(S.name);var ef=document.getElementById('email-input');if(ef)ef.value=S.email;updateCard()"></div>
+      <div class="field"><label>Email</label>
+        <input id="email-input" type="text" placeholder="auto-generated" value="${esc(S.email)}" oninput="S.email=this.value;updateCard()"></div>
+      <div class="row2">
+        <div class="field"><label>Student ID</label>
+          <input type="text" placeholder="Auto-generated" value="${esc(S.uid)}" oninput="S.uid=this.value;updateCard();updateQR()"></div>
+        <div class="field"><label>Year of Study</label>
+          <select onchange="S.year=this.value;updateCard()">
+            <option value="">Select</option>
+            ${YEARS.map(y=>`<option${S.year===y?' selected':''}>${y}</option>`).join('')}
+          </select></div>
+      </div>
+      <div class="field"><label>Course</label>
+        <select onchange="S.course=this.value;updateCard()">
+          <option value="">Select course</option>
+          ${COURSES.map(c=>`<option${S.course===c?' selected':''}>${c}</option>`).join('')}
+        </select></div>
+      <div class="field"><label>Department</label>
+        <select onchange="S.dept=this.value;updateCard()">
+          <option value="">Select department</option>
+          ${DEPTS.map(d=>`<option${S.dept===d?' selected':''}>${d}</option>`).join('')}
+        </select></div>
+      <div class="row2">
+        <div class="field"><label>Date of Birth</label>
+          <input type="text" placeholder="DD/MM/YYYY" value="${esc(S.dob)}" oninput="S.dob=this.value;updateCard()"></div>
+        <div class="field"><label>Blood Group</label>
+          <select onchange="S.blood=this.value;updateCard()">
+            <option value="">Select</option>
+            ${BLOODS.map(b=>`<option${S.blood===b?' selected':''}>${b}</option>`).join('')}
+          </select></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Valid Until</label>
+          <input type="text" placeholder="e.g. 2025–2026" value="${esc(S.valid)}" oninput="S.valid=this.value;updateCard()"></div>
+        <div class="field"><label>Emergency Contact</label>
+          <input type="text" placeholder="10-digit mobile" value="${esc(S.emergency)}" oninput="S.emergency=this.value;updateCard()"></div>
+      </div>
+      <div class="field"><label>Authorized Signatory</label>
+        <input type="text" placeholder="Signatory name" value="${esc(sigName)}" oninput="sigName=this.value;updateCard()"></div>`;
+  } else {
+    el.innerHTML = `
+      <div class="field"><label>Full Name</label>
+        <input type="text" placeholder="Enter teacher name" value="${esc(S.name)}" oninput="S.name=this.value;S.email=nameToEmail(S.name);var ef=document.getElementById('email-input');if(ef)ef.value=S.email;updateCard()"></div>
+      <div class="field"><label>Email</label>
+        <input id="email-input" type="text" placeholder="auto-generated" value="${esc(S.email)}" oninput="S.email=this.value;updateCard()"></div>
+      <div class="row2">
+        <div class="field"><label>Employee ID</label>
+          <input type="text" placeholder="Auto-generated" value="${esc(S.uid)}" oninput="S.uid=this.value;updateCard();updateQR()"></div>
+        <div class="field"><label>Blood Group</label>
+          <select onchange="S.blood=this.value;updateCard()">
+            <option value="">Select</option>
+            ${BLOODS.map(b=>`<option${S.blood===b?' selected':''}>${b}</option>`).join('')}
+          </select></div>
+      </div>
+      <div class="field"><label>Designation</label>
+        <select onchange="S.desig=this.value;updateCard()">
+          <option value="">Select designation</option>
+          ${DESIGS.map(d=>`<option${S.desig===d?' selected':''}>${d}</option>`).join('')}
+        </select></div>
+      <div class="field"><label>Department</label>
+        <select onchange="S.dept=this.value;updateCard()">
+          <option value="">Select department</option>
+          ${DEPTS.map(d=>`<option${S.dept===d?' selected':''}>${d}</option>`).join('')}
+        </select></div>
+      <div class="field"><label>Qualification</label>
+        <input type="text" placeholder="e.g. M.Sc, PhD" value="${esc(S.qual)}" oninput="S.qual=this.value;updateCard()"></div>
+      <div class="row2">
+        <div class="field"><label>Date of Joining</label>
+          <input type="text" placeholder="DD/MM/YYYY" value="${esc(S.doj)}" oninput="S.doj=this.value;updateCard()"></div>
+        <div class="field"><label>Valid Until</label>
+          <input type="text" placeholder="e.g. 2025–2026" value="${esc(S.valid)}" oninput="S.valid=this.value;updateCard()"></div>
+      </div>
+      <div class="field"><label>Emergency Contact</label>
+        <input type="text" placeholder="10-digit mobile" value="${esc(S.emergency)}" oninput="S.emergency=this.value;updateCard()"></div>
+      <div class="field"><label>Authorized Signatory</label>
+        <input type="text" placeholder="Signatory name" value="${esc(sigName)}" oninput="sigName=this.value;updateCard()"></div>`;
+  }
+}
+
+function esc(s){ return (s||'').replace(/"/g,'&quot;'); }
+
+// ── UPDATE CARD ───────────────────────────────────────────
+function updateCard(){
+  set('c-name',  S.name||'—');
+  set('c-uid',   S.uid||(type==='student'?'PC-STU-XXXX-XXXX':'PC-FAC-XXXX-XXX'));
+  set('c-email', S.email||'—');
+  set('c-blood', S.blood||'—');
+  set('c-valid', S.valid||'—');
+  set('c-strip', stripNum());
+  set('c-sig-name', sigName||'');
+
+  if(type==='student'){
+    set('c-date-lbl','Date of Birth');
+    set('c-date-val', S.dob||'—');
+    document.getElementById('c-grid').innerHTML = `
+      <div class="c-field"><div class="c-field-lbl">Course</div><div class="c-field-val">${S.course||'—'}</div></div>
+      <div class="c-field"><div class="c-field-lbl">Year</div><div class="c-field-val">${S.year||'—'}</div></div>
+      <div class="c-field"><div class="c-field-lbl">Department</div><div class="c-field-val">${S.dept||'—'}</div></div>
+      <div class="c-field"><div class="c-field-lbl">Emergency</div><div class="c-field-val">${S.emergency||'—'}</div></div>`;
+  } else {
+    set('c-date-lbl','Date of Joining');
+    set('c-date-val', S.doj||'—');
+    document.getElementById('c-grid').innerHTML = `
+      <div class="c-field"><div class="c-field-lbl">Designation</div><div class="c-field-val">${S.desig||'—'}</div></div>
+      <div class="c-field"><div class="c-field-lbl">Qualification</div><div class="c-field-val">${S.qual||'—'}</div></div>
+      <div class="c-field"><div class="c-field-lbl">Department</div><div class="c-field-val">${S.dept||'—'}</div></div>
+      <div class="c-field"><div class="c-field-lbl">Emergency</div><div class="c-field-val">${S.emergency||'—'}</div></div>`;
+  }
+}
+function set(id,val){ const el=document.getElementById(id); if(el) el.textContent=val; }
+
+// ── QR CODE ──────────────────────────────────────────────
+function updateQR(){
+  const el = document.getElementById('c-qr');
+  el.innerHTML = '';
+  const txt = S.uid
+    ? `PIONEER COLLEGE\n${type==='student'?'Student':'Faculty'} ID: ${S.uid}\nName: ${S.name||'N/A'}`
+    : 'PIONEER COLLEGE';
+  try{
+    new QRCode(el,{text:txt,width:46,height:46,colorDark:'#000',colorLight:'#fff',correctLevel:QRCode.CorrectLevel.M});
+  }catch(e){
+    el.innerHTML='<div style="width:46px;height:46px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:7px;color:#999">QR</div>';
+  }
+}
+
+// ── TYPE SWITCH ───────────────────────────────────────────
+function setType(t){
+  type = t;
+  document.querySelectorAll('.type-btn').forEach(b=>b.classList.toggle('active',b.dataset.t===t));
+  document.getElementById('id-card').className='id-card '+(t==='student'?'student':'teacher');
+  document.getElementById('c-badge').textContent=t==='student'?'STUDENT ID':'FACULTY ID';
+  Object.keys(S).forEach(k=>{S[k]='';});
+  renderFields();
+  updateCard();
+  updateQR();
+}
+
+// ── PHOTO UPLOAD ─────────────────────────────────────────
+function uploadPhoto(input){
+  const file=input.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const ph=document.getElementById('c-photo');
+    ph.innerHTML=`<img src="${e.target.result}" alt="Photo">`;
+    ph.classList.add('has-photo');
+    document.getElementById('upload-text').textContent='✅ Photo uploaded';
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── RESET ─────────────────────────────────────────────────
+function resetAll(){
+  Object.keys(S).forEach(k=>{S[k]='';});
+  sigName='';
+  const ph=document.getElementById('c-photo');
+  ph.innerHTML='';
+  ph.classList.remove('has-photo');
+  document.getElementById('upload-text').textContent='Click to upload photo';
+  document.getElementById('photo-input').value='';
+  renderFields();
+  updateCard();
+  updateQR();
+}
+
+// ── DOWNLOAD PNG ──────────────────────────────────────────
+async function downloadPNG(){
+  if(typeof html2canvas==='undefined'){
+    alert('html2canvas is still loading — please try again in a moment.');
+    return;
+  }
+  const btn=document.getElementById('btn-dl');
+  const overlay=document.getElementById('dl-overlay');
+  btn.disabled=true;
+  overlay.classList.add('show');
+
+  const card=document.getElementById('id-card');
+
+  // Save and strip styles that distort capture
+  const saved={
+    transform:card.style.transform,
+    transition:card.style.transition,
+    boxShadow:card.style.boxShadow,
+    borderRadius:card.style.borderRadius,
+  };
+  card.style.transform='none';
+  card.style.transition='none';
+  card.style.boxShadow='none';
+  card.style.borderRadius='0';
+
+  // Allow styles to settle before measuring
+  await new Promise(r=>setTimeout(r,60));
+
+  const W=card.offsetWidth;
+  const H=card.offsetHeight;
+
+  const captureOpts=(scale)=>({
+    scale,
+    useCORS:true,
+    allowTaint:true,
+    backgroundColor:null,
+    logging:false,
+    imageTimeout:10000,
+    width:W,
+    height:H,
+    // Strip parent backgrounds in the clone so page grey doesn't bleed in
+    onclone:(_doc,el)=>{
+      el.style.borderRadius='0';
+      el.style.boxShadow='none';
+      let p=el.parentElement;
+      while(p&&p.tagName!=='BODY'){
+        p.style.background='transparent';
+        p.style.backgroundColor='transparent';
+        p=p.parentElement;
+      }
+    }
+  });
+
+  try{
+    const canvas=await html2canvas(card,captureOpts(4));
+
+    canvas.toBlob(async blob=>{
+      let finalBlob=blob;
+      if(blob.size<80*1024){
+        const big=await html2canvas(card,captureOpts(6));
+        finalBlob=await new Promise(r=>big.toBlob(r,'image/png'));
+      }
+      const url=URL.createObjectURL(finalBlob);
+      const a=document.createElement('a');
+      const fname=`pioneer-college-id-${(S.uid||'card').replace(/[^a-z0-9]/gi,'-')}.png`;
+      a.href=url;a.download=fname;a.click();
+      setTimeout(()=>URL.revokeObjectURL(url),3000);
+    },'image/png');
+
+  }catch(err){
+    alert('Download failed: '+err.message);
+  }finally{
+    card.style.transform=saved.transform;
+    card.style.transition=saved.transition;
+    card.style.boxShadow=saved.boxShadow;
+    card.style.borderRadius=saved.borderRadius;
+    overlay.classList.remove('show');
+    btn.disabled=false;
+  }
+}
+
+// ── INIT ─────────────────────────────────────────────────
+window.addEventListener('load',()=>{
+  renderFields();
+  updateCard();
+  updateQR();
+  autoGenerate();
+});
+</script>
+</body>
+</html>

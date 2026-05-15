@@ -1,0 +1,296 @@
+﻿/* Card hover and button hover states */
+/* ============================================================
+   CARD HOVER LIFT
+   Applied to DiplomaCard, FacultyCard, EventCard etc.
+============================================================ */
+
+.hover-lift {
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.hover-lift-sm {
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.hover-lift-sm:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.hover-lift-lg {
+  transition:
+    transform var(--transition-slow),
+    box-shadow var(--transition-slow);
+}
+
+.hover-lift-lg:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* ============================================================
+   BUTTON HOVER STATES
+============================================================ */
+
+.hover-brighten {
+  transition: filter var(--transition-fast);
+}
+
+.hover-brighten:hover {
+  filter: brightness(1.08);
+}
+
+.hover-darken {
+  transition: filter var(--transition-fast);
+}
+
+.hover-darken:hover {
+  filter: brightness(0.92);
+}
+
+/* ============================================================
+   SCALE ON HOVER
+============================================================ */
+
+.hover-scale {
+  transition: transform var(--transition-base);
+}
+
+.hover-scale:hover {
+  transform: scale(1.03);
+}
+
+.hover-scale-sm {
+  transition: transform var(--transition-fast);
+}
+
+.hover-scale-sm:hover {
+  transform: scale(1.015);
+}
+
+.hover-scale-img {
+  overflow: hidden;
+}
+
+.hover-scale-img img {
+  transition: transform 0.5s ease;
+}
+
+.hover-scale-img:hover img {
+  transform: scale(1.06);
+}
+
+/* ============================================================
+   IMAGE OVERLAY HOVER
+   Used in gallery, campus preview, course cards
+============================================================ */
+
+.hover-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(27, 79, 114, 0);
+  transition: background var(--transition-base);
+}
+
+.hover-overlay:hover::after {
+  background: rgba(27, 79, 114, 0.25);
+}
+
+/* ============================================================
+   NAV LINK UNDERLINE — animated bottom border
+============================================================ */
+
+.hover-underline {
+  position: relative;
+}
+
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-accent);
+  transition: width var(--transition-base);
+}
+
+.hover-underline:hover::after,
+.hover-underline.active::after {
+  width: 100%;
+}
+
+/* ============================================================
+   ACCENT BORDER LEFT — card side accent on hover
+============================================================ */
+
+.hover-accent-border {
+  border-left: 3px solid transparent;
+  transition:
+    border-color var(--transition-base),
+    padding-left var(--transition-base);
+}
+
+.hover-accent-border:hover {
+  border-color: var(--color-accent);
+  padding-left: var(--space-3);
+}
+
+/* ============================================================
+   ICON ROTATION — used on accordion arrows, dropdown chevrons
+============================================================ */
+
+.hover-rotate {
+  transition: transform var(--transition-base);
+}
+
+.hover-rotate:hover {
+  transform: rotate(180deg);
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+/* ============================================================
+   GLOW ON HOVER — accent glow for primary CTA buttons
+============================================================ */
+
+.hover-glow-accent {
+  transition:
+    box-shadow var(--transition-base),
+    transform var(--transition-fast);
+}
+
+.hover-glow-accent:hover {
+  box-shadow: var(--shadow-accent);
+  transform: translateY(-1px);
+}
+
+.hover-glow-primary {
+  transition:
+    box-shadow var(--transition-base),
+    transform var(--transition-fast);
+}
+
+.hover-glow-primary:hover {
+  box-shadow: var(--shadow-primary);
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+   FOCUS VISIBLE — keyboard navigation outline
+   Applied globally to all interactive elements
+============================================================ */
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   ACTIVE PRESS — slight press-down on button click
+============================================================ */
+
+.press-down {
+  transition: transform var(--transition-fast);
+}
+
+.press-down:active {
+  transform: translateY(1px);
+}
+
+/* ============================================================
+   COLOUR TRANSITION — bg and text colour shifts
+============================================================ */
+
+.hover-bg-primary {
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+.hover-bg-primary:hover {
+  background-color: var(--color-primary);
+  color: var(--color-text-on-primary);
+}
+
+.hover-bg-accent {
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+.hover-bg-accent:hover {
+  background-color: var(--color-accent);
+  color: var(--color-text-on-accent);
+}
+
+/* ============================================================
+   ACCESSIBILITY — no hover effects on touch devices
+   and respect reduced motion
+============================================================ */
+
+@media (hover: none) {
+  .hover-lift:hover,
+  .hover-lift-sm:hover,
+  .hover-lift-lg:hover {
+    transform: none;
+    box-shadow: var(--card-shadow);
+  }
+
+  .hover-scale:hover,
+  .hover-scale-sm:hover {
+    transform: none;
+  }
+
+  .hover-scale-img:hover img {
+    transform: none;
+  }
+
+  .hover-overlay:hover::after {
+    background: rgba(27, 79, 114, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-lift,
+  .hover-lift-sm,
+  .hover-lift-lg,
+  .hover-scale,
+  .hover-scale-sm,
+  .hover-brighten,
+  .hover-darken,
+  .hover-glow-accent,
+  .hover-glow-primary,
+  .press-down,
+  .hover-bg-primary,
+  .hover-bg-accent,
+  .hover-accent-border,
+  .hover-rotate,
+  .hover-underline::after {
+    transition: none;
+    animation: none;
+  }
+}

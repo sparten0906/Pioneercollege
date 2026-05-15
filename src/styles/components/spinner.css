@@ -1,0 +1,29 @@
+﻿/* Loading spinner animation */
+.spinner {
+  display: inline-block;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: var(--radius-full);
+  animation: spin 0.75s linear infinite;
+}
+
+.spinner--sm  { width: 18px; height: 18px; }
+.spinner--md  { width: 28px; height: 28px; }
+.spinner--lg  { width: 44px; height: 44px; border-width: 4px; }
+
+.spinner--accent  { border-top-color: var(--color-accent); }
+.spinner--white   { border-color: rgba(255,255,255,0.3); border-top-color: #fff; }
+
+.loading-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-20);
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.loading-overlay__text {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}

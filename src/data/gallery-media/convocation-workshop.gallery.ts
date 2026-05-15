@@ -1,0 +1,55 @@
+﻿import type { GalleryImage } from '../../types/gallery.types'
+import { getGalleryImage } from '../../utils/asset-path-resolver'
+
+export const convocationWorkshopGallery: GalleryImage[] = [
+  {
+    id:        'gal-conv-001',
+    src:       getGalleryImage('convocation-event', 'convocation-01.webp'),
+    thumbnail: getGalleryImage('convocation-event', 'convocation-01.webp'),
+    alt:       'Convocation ceremony 2023 at BBS Institute',
+    caption:   'Degree and diploma distribution at Convocation 2023',
+    category:  'convocation',
+    eventName: 'Convocation 2023',
+    eventDate: '2023-09-20',
+  },
+  {
+    id:        'gal-conv-002',
+    src:       getGalleryImage('convocation-event', 'convocation-02.webp'),
+    thumbnail: getGalleryImage('convocation-event', 'convocation-02.webp'),
+    alt:       'Gold medal recipients at BBS Convocation 2023',
+    caption:   'Gold medal recipients — Batch of 2023',
+    category:  'convocation',
+    eventName: 'Convocation 2023',
+    eventDate: '2023-09-20',
+  },
+  {
+    id:        'gal-ws-001',
+    src:       getGalleryImage('workshop-event', 'workshop-01.webp'),
+    thumbnail: getGalleryImage('workshop-event', 'workshop-01.webp'),
+    alt:       'ECG interpretation workshop for students',
+    caption:   'Hands-on ECG interpretation workshop — January 2024',
+    category:  'workshop',
+    eventName: 'ECG Workshop 2024',
+    eventDate: '2024-01-15',
+  },
+  {
+    id:        'gal-ws-002',
+    src:       getGalleryImage('workshop-event', 'workshop-02.webp'),
+    thumbnail: getGalleryImage('workshop-event', 'workshop-02.webp'),
+    alt:       'BLS training session at BBS Institute',
+    caption:   'Basic Life Support (BLS) certification workshop',
+    category:  'workshop',
+    eventName: 'BLS Workshop 2024',
+    eventDate: '2024-02-10',
+  },
+  {
+    id:        'gal-ws-003',
+    src:       getGalleryImage('workshop-event', 'workshop-03.webp'),
+    thumbnail: getGalleryImage('workshop-event', 'workshop-03.webp'),
+    alt:       'Diabetes awareness camp organised by BBS Institute students',
+    caption:   'Community diabetes awareness camp organised by final year students',
+    category:  'workshop',
+    eventName: 'Diabetes Awareness Camp 2023',
+    eventDate: '2023-11-14',
+  },
+]
