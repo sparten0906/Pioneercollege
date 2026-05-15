@@ -6,15 +6,15 @@ Use these commands from the project folder:
 cd D:\MyProjects\Tempmail
 git status
 git add .
-git commit -m "Optimized Account page and added Email Verify"
+git commit -m "ID card name change"
 git push
 ```
 
 For the first push to a new GitHub repository:
 
 ```bash
-cd D:\MyProjects\Tempmail
-git remote add origin https://github.com/sparten0906/kjmaildesk.git
+cd C:\Users\KAARTHIKEYAN\Downloads\college-main\college-main
+git remote add origin https://github.com/sparten0906/Pioneercollege.git
 git branch -M main
 git push -u origin main
 ```
