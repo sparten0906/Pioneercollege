@@ -644,7 +644,8 @@ async function downloadPNG(){
       }
       const url=URL.createObjectURL(finalBlob);
       const a=document.createElement('a');
-      const fname=`pioneer-college-id-${(S.uid||'card').replace(/[^a-z0-9]/gi,'-')}.png`;
+      const namePart=(S.name||'ID_Card').replace(/\s+/g,'_').replace(/[^a-z0-9_]/gi,'');
+      const fname=`${namePart}_PIONEER_COLLEGE.png`;
       a.href=url;a.download=fname;a.click();
       setTimeout(()=>URL.revokeObjectURL(url),3000);
     },'image/png');
